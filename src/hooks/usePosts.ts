@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import type { Post, User, Like, Comment } from '../lib/supabase';
+import type { Database } from '../lib/database.types';
 
-interface PostWithDetails extends Post {
-  users: User;
-  likes: Like[];
-  comments: Comment[];
-}
+type Post = Database['public']['Tables']['posts']['Row'] & {
+  users: Database['public']['Tables']['users']['Row'];
+  likes: Database['public']['Tables']['likes']['Row'][];
+  comments: Database['public']['Tables']['comments']['Row'][];
+};
 
 export function usePosts() {
-  const [posts, setPosts] = useState<PostWithDetails[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchPosts = async () => {
@@ -25,27 +25,11 @@ export function usePosts() {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setPosts(data);
+      setPosts(data || []);
     } catch (error) {
       console.error('Error fetching posts:', error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const createPost = async (userId: string, content: string, mediaUrl: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('posts')
-        .insert([{ user_id: userId, content, media_url: mediaUrl }])
-        .select()
-        .single();
-
-      if (error) throw error;
-      await fetchPosts();
-      return { data, error: null };
-    } catch (error) {
-      return { data: null, error };
     }
   };
 
@@ -76,22 +60,6 @@ export function usePosts() {
     }
   };
 
-  const addComment = async (postId: string, userId: string, content: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('comments')
-        .insert([{ post_id: postId, user_id: userId, content }])
-        .select()
-        .single();
-
-      if (error) throw error;
-      await fetchPosts();
-      return { data, error: null };
-    } catch (error) {
-      return { data: null, error };
-    }
-  };
-
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -99,8 +67,7 @@ export function usePosts() {
   return {
     posts,
     loading,
-    createPost,
     toggleLike,
-    addComment
+    fetchPosts
   };
 }

@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
+import { usePosts } from '../hooks/usePosts';
+import { format } from 'date-fns';
+import { Home, PlusSquare, User, Heart, MessageCircle } from 'lucide-react';
 
 function Login() {
   const [birthdate, setBirthdate] = useState('');
@@ -21,7 +24,7 @@ function Login() {
     }
 
     if (data) {
-      navigate('/sns/timeline');
+      navigate('/sns/top');
     }
   };
 
@@ -62,51 +65,105 @@ function Login() {
 
 function Timeline() {
   const { user } = useAuth();
+  const { posts, loading, toggleLike } = usePosts();
   
   if (!user) {
     return <Navigate to="/sns" />;
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-6 text-black">タイムライン</h2>
-      <p className="text-black">ようこそ、{user.name}さん</p>
-    </div>
-  );
-}
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white border-b border-gray-200 fixed top-0 w-full z-10">
+        <div className="max-w-2xl mx-auto px-4 py-3">
+          <img 
+            src="/assets/tsutsuji-logo.png" 
+            alt="TSUTSUJI" 
+            className="h-8"
+          />
+        </div>
+      </header>
 
-function Profile() {
-  const { user } = useAuth();
-  
-  if (!user) {
-    return <Navigate to="/sns" />;
-  }
+      <main className="max-w-2xl mx-auto pt-16 pb-20">
+        {loading ? (
+          <div className="flex justify-center items-center h-32">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+          </div>
+        ) : posts.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-500">まだ投稿がありません</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {posts.map((post) => (
+              <article key={post.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                <div className="p-4 flex items-center space-x-3">
+                  <div className="w-8 h-8 rounded-full bg-gray-200"></div>
+                  <span className="font-medium">{post.users.name}</span>
+                </div>
+                
+                <div className="aspect-square bg-black">
+                  <img
+                    src={post.media_url}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </div>
 
-  return (
-    <div className="max-w-2xl mx-auto p-4">
-      <div className="text-center mb-8">
-        <div className="w-24 h-24 rounded-full bg-gray-200 mx-auto mb-4" />
-        <h2 className="text-xl font-bold text-black">{user.name}</h2>
-        <p className="text-gray-600">自己紹介文がここに表示されます</p>
-        <button className="mt-4 px-4 py-2 bg-gray-100 rounded text-black">
-          プロフィール編集
-        </button>
-      </div>
-      <div className="grid grid-cols-3 gap-1">
-        {/* 投稿した写真一覧 */}
-      </div>
+                <div className="p-4 space-y-3">
+                  <div className="flex items-center space-x-4">
+                    <button 
+                      onClick={() => toggleLike(post.id, user.id)}
+                      className="text-gray-700 hover:text-red-500 transition-colors"
+                    >
+                      <Heart className="w-6 h-6" />
+                    </button>
+                    <button className="text-gray-700 hover:text-blue-500 transition-colors">
+                      <MessageCircle className="w-6 h-6" />
+                    </button>
+                  </div>
+                  
+                  <div>
+                    <p className="font-medium mb-1">いいね {post.likes.length}件</p>
+                    <p>
+                      <span className="font-medium">{post.users.name}</span>
+                      <span className="ml-2">{post.content}</span>
+                    </p>
+                  </div>
+
+                  <p className="text-gray-500 text-sm">
+                    {format(new Date(post.created_at), 'yyyy年M月d日 HH:mm')}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </main>
+
+      <nav className="bg-white border-t border-gray-200 fixed bottom-0 w-full">
+        <div className="max-w-2xl mx-auto px-4 py-3">
+          <div className="flex justify-between items-center">
+            <Link to="/sns/top" className="text-gray-700 hover:text-gray-900">
+              <Home className="w-6 h-6" />
+            </Link>
+            <Link to="/sns/post" className="text-gray-700 hover:text-gray-900">
+              <PlusSquare className="w-6 h-6" />
+            </Link>
+            <Link to="/sns/myposts" className="text-gray-700 hover:text-gray-900">
+              <User className="w-6 h-6" />
+            </Link>
+          </div>
+        </div>
+      </nav>
     </div>
   );
 }
 
 export default function SNSPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/timeline" element={<Timeline />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/top" element={<Timeline />} />
+    </Routes>
   );
 }
