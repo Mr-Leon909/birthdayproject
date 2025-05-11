@@ -36,7 +36,8 @@ function Login() {
       }
 
       if (data) {
-        navigate('/sns/timeline', { replace: true });
+        console.log('Login successful, navigating to timeline...');
+        navigate('/sns/timeline');
       }
     } catch (err) {
       console.error('Login error:', err);
@@ -48,12 +49,8 @@ function Login() {
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
         <div className="mb-8 text-center">
-          <img 
-            src="/assets/tsutsuji-logo.png" 
-            alt="TSUTSUJI" 
-            className="h-12 mx-auto mb-4"
-          />
-          <h2 className="text-2xl font-bold text-gray-900">ログイン</h2>
+          <h2 className="text-2xl font-bold text-gray-900">TSUTSUJI</h2>
+          <p className="mt-2 text-gray-600">2人だけのSNS</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -103,22 +100,30 @@ function Login() {
 }
 
 function Timeline() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { posts, loading, toggleLike } = usePosts();
+  const navigate = useNavigate();
   
   if (!user) {
     return <Navigate to="/sns" replace />;
   }
 
+  const handleLogout = () => {
+    logout();
+    navigate('/sns');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200 fixed top-0 w-full z-10">
-        <div className="max-w-2xl mx-auto px-4 py-3">
-          <img 
-            src="/assets/tsutsuji-logo.png" 
-            alt="TSUTSUJI" 
-            className="h-8"
-          />
+        <div className="max-w-2xl mx-auto px-4 py-3 flex justify-between items-center">
+          <h1 className="text-xl font-bold">TSUTSUJI</h1>
+          <button
+            onClick={handleLogout}
+            className="text-sm text-gray-600 hover:text-gray-900"
+          >
+            ログアウト
+          </button>
         </div>
       </header>
 
@@ -188,7 +193,51 @@ function Timeline() {
             <Link to="/sns/post" className="text-gray-700 hover:text-gray-900">
               <PlusSquare className="w-6 h-6" />
             </Link>
-            <Link to="/sns/myposts" className="text-gray-700 hover:text-gray-900">
+            <Link to="/sns/profile" className="text-gray-700 hover:text-gray-900">
+              <User className="w-6 h-6" />
+            </Link>
+          </div>
+        </div>
+      </nav>
+    </div>
+  );
+}
+
+function Profile() {
+  const { user } = useAuth();
+  
+  if (!user) {
+    return <Navigate to="/sns" replace />;
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 pt-16">
+      <header className="bg-white border-b border-gray-200 fixed top-0 w-full z-10">
+        <div className="max-w-2xl mx-auto px-4 py-3">
+          <h1 className="text-xl font-bold">プロフィール</h1>
+        </div>
+      </header>
+
+      <div className="max-w-2xl mx-auto p-4">
+        <div className="text-center mb-8">
+          <div className="w-24 h-24 rounded-full bg-gray-200 mx-auto mb-4"></div>
+          <h2 className="text-xl font-bold">{user.name}</h2>
+          <p className="text-gray-600 mt-2">
+            誕生日: {format(new Date(user.birthdate), 'yyyy年M月d日')}
+          </p>
+        </div>
+      </div>
+
+      <nav className="bg-white border-t border-gray-200 fixed bottom-0 w-full">
+        <div className="max-w-2xl mx-auto px-4 py-3">
+          <div className="flex justify-between items-center">
+            <Link to="/sns/timeline" className="text-gray-700 hover:text-gray-900">
+              <Home className="w-6 h-6" />
+            </Link>
+            <Link to="/sns/post" className="text-gray-700 hover:text-gray-900">
+              <PlusSquare className="w-6 h-6" />
+            </Link>
+            <Link to="/sns/profile" className="text-gray-700 hover:text-gray-900">
               <User className="w-6 h-6" />
             </Link>
           </div>
@@ -199,17 +248,11 @@ function Timeline() {
 }
 
 export default function SNSPage() {
-  const { isAuthenticated } = useAuth();
-
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route 
-        path="/timeline" 
-        element={
-          isAuthenticated ? <Timeline /> : <Navigate to="/sns" replace />
-        } 
-      />
+      <Route path="/timeline" element={<Timeline />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 }
