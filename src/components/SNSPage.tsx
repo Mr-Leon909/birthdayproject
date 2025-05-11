@@ -15,16 +15,21 @@ function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { data, error } = await login(name, birthdate);
-    
-    if (error) {
-      console.error('Login error:', error);
-      setError('ログインに失敗しました。名前と生年月日を確認してください。');
-      return;
-    }
+    try {
+      const { data, error } = await login(name, birthdate);
+      
+      if (error) {
+        console.error('Login error:', error);
+        setError('ログインに失敗しました。名前と生年月日を確認してください。');
+        return;
+      }
 
-    if (data) {
-      navigate('/sns/top');
+      if (data) {
+        navigate('/sns/timeline');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('ログインに失敗しました。');
     }
   };
 
@@ -143,7 +148,7 @@ function Timeline() {
       <nav className="bg-white border-t border-gray-200 fixed bottom-0 w-full">
         <div className="max-w-2xl mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
-            <Link to="/sns/top" className="text-gray-700 hover:text-gray-900">
+            <Link to="/sns/timeline" className="text-gray-700 hover:text-gray-900">
               <Home className="w-6 h-6" />
             </Link>
             <Link to="/sns/post" className="text-gray-700 hover:text-gray-900">
@@ -163,7 +168,7 @@ export default function SNSPage() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/top" element={<Timeline />} />
+      <Route path="/timeline" element={<Timeline />} />
     </Routes>
   );
 }
