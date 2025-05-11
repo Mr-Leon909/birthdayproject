@@ -11,7 +11,7 @@ export function useAuth() {
     try {
       const { data, error } = await supabase
         .from('users')
-        .select()
+        .select('*')
         .eq('name', name)
         .eq('birthdate', birthdate)
         .single();
@@ -21,8 +21,12 @@ export function useAuth() {
         return { data: null, error };
       }
 
-      setUser(data);
-      return { data, error: null };
+      if (data) {
+        setUser(data);
+        return { data, error: null };
+      }
+
+      return { data: null, error: new Error('User not found') };
     } catch (error) {
       console.error('Login error:', error);
       return { data: null, error };

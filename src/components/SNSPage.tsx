@@ -15,6 +15,12 @@ function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!name || !birthdate) {
+      setError('名前と生年月日を入力してください。');
+      return;
+    }
+
     try {
       const { data, error } = await login(name, birthdate);
       
@@ -26,6 +32,8 @@ function Login() {
 
       if (data) {
         navigate('/sns/timeline');
+      } else {
+        setError('ユーザーが見つかりません。');
       }
     } catch (err) {
       console.error('Login error:', err);
@@ -45,6 +53,7 @@ function Login() {
             onChange={(e) => setName(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded text-black"
             placeholder="名前を入力"
+            required
           />
         </div>
         <div>
@@ -54,6 +63,7 @@ function Login() {
             value={birthdate}
             onChange={(e) => setBirthdate(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded text-black"
+            required
           />
         </div>
         {error && <p className="text-red-500">{error}</p>}
