@@ -12,7 +12,7 @@ export default function TopPage() {
       title: "TSUTSUJI",
       description: "2人だけのSNS「TSUTSUJI」では、二人の思い出を写真や動画と一緒に投稿できます。大切な瞬間をここに残していきましょう。",
       link: "/sns",
-      linkText: "TSUTSUJIを見る"
+      linkText: "TSUTSUJIへログイン"
     },
     {
       url: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=2000&q=80",
@@ -105,7 +105,7 @@ export default function TopPage() {
               </div>
               
               <div className="px-4">
-                <h3 className="text-2xl font-light mb-4"
+                <h3 className="text-2xl font-light mb-4 text-black"
                     style={{ fontFamily: 'Noto Serif JP' }}>
                   {item.title}
                 </h3>
