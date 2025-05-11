@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: white;
+  font-family: 'Noto Serif JP', serif;
+}
+
+.scroll-observer {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.scroll-observer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
