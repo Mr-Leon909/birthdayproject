@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
-// import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function TopPage() {
   const imageRef = useRef<HTMLDivElement>(null);
   const currentImageIndex = useRef(0);
+  const navigate = useNavigate();
   
   const images = [
     {
@@ -48,11 +49,8 @@ export default function TopPage() {
   }, []);
 
   return (
-// 画面全体の背景色を白、文字色を黒
-    <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
+    <div className="min-h-screen bg-black text-black">
       <div className="relative h-screen">
-        {/* Background Image */}
         <div
           ref={imageRef}
           className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
@@ -62,37 +60,34 @@ export default function TopPage() {
           }}
         />
 
-        {/* Hero Content */}
         <div className="relative z-10 h-full flex flex-col items-center justify-center opacity-0 animate-fade-in">
           <h1 
-            className="text-5xl md:text-8xl font-light tracking-[0.2em] mb-8"
+            className="text-5xl md:text-8xl font-light tracking-[0.2em] mb-8 text-white"
             style={{ fontFamily: 'Cormorant Garamond' }}
           >
             30th anniversary
           </h1>
           <h2 
-            className="text-4xl md:text-7xl font-light tracking-[0.2em] mb-16"
+            className="text-4xl md:text-7xl font-light tracking-[0.2em] mb-16 text-white"
             style={{ fontFamily: 'Cormorant Garamond' }}
           >
             Happy Birthday
           </h2>
           <p 
-            className="text-xl md:text-3xl font-light tracking-[0.2em] mb-8"
+            className="text-xl md:text-3xl font-light tracking-[0.2em] mb-8 text-white"
             style={{ fontFamily: 'Noto Serif JP' }}
           >
             最高のひと時を最高の場所で
           </p>
         </div>
 
-        {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 animate-fade-in-delay">
           <div className="w-[1px] h-16 bg-white/50 mb-4 animate-scroll-down" />
           <p className="text-sm tracking-[0.2em] text-white/70">SCROLL</p>
         </div>
       </div>
 
-      {/* コンテンツたち */}
-      <div className="py-16 px-4 md:px-8 bg-white text-black">
+      <div className="py-16 px-4 md:px-8 bg-white">
         <h2 className="text-4xl font-light text-center mb-16 tracking-widest"
             style={{ fontFamily: 'Cormorant Garamond' }}>
           GALLERY
@@ -101,7 +96,6 @@ export default function TopPage() {
         <div className="space-y-24 max-w-6xl mx-auto">
           {images.map((item, index) => (
             <div key={index} className="group">
-              {/* 1. 画像 */}
               <div className="aspect-[16/9] overflow-hidden mb-6">
                 <img 
                   src={item.url} 
@@ -111,24 +105,22 @@ export default function TopPage() {
               </div>
               
               <div className="px-4">
-                {/* 2. 本文 */}
                 <h3 className="text-2xl font-light mb-4"
                     style={{ fontFamily: 'Noto Serif JP' }}>
                   {item.title}
                 </h3>
                 <p className="text-gray-700 mb-6"
-                  style={{ fontFamily: 'Noto Serif JP' }}>
+                   style={{ fontFamily: 'Noto Serif JP' }}>
                   {item.description}
                 </p>
                 
-                {/* 3. 詳細ページへのリンク */}
-                <a 
-                  href={item.link}
-                  className="inline-block border-b border-black pb-1 hover:opacity-70 transition-opacity"
+                <button 
+                  onClick={() => navigate(item.link)}
+                  className="inline-block border-b border-black pb-1 hover:opacity-70 transition-opacity text-black"
                   style={{ fontFamily: 'Noto Serif JP' }}
                 >
                   {item.linkText}
-                </a>
+                </button>
               </div>
             </div>
           ))}
