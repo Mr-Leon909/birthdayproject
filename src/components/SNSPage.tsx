@@ -11,7 +11,12 @@ function Login() {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
+
+  // If user is already logged in, redirect to timeline
+  if (user) {
+    return <Navigate to="/sns/timeline" replace />;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +36,7 @@ function Login() {
       }
 
       if (data) {
-        navigate('/sns/timeline');
+        navigate('/sns/timeline', { replace: true });
       } else {
         setError('ユーザーが見つかりません。');
       }
@@ -83,7 +88,7 @@ function Timeline() {
   const { posts, loading, toggleLike } = usePosts();
   
   if (!user) {
-    return <Navigate to="/sns" />;
+    return <Navigate to="/sns" replace />;
   }
 
   return (
