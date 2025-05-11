@@ -5,17 +5,17 @@ export default function Navigation() {
 
   const menuItems = [
     { id: 'top', label: 'TOP' },
-    { id: 'puzzle', label: '謎解き' },
+    { id: 'sns', label: 'TSUTSUJI' },
     { id: 'schedule', label: '沖縄旅行表' },
-    { id: 'secret', label: 'シークレット' },
-    { id: 'sns', label: '2人だけのSNS' },
+    { id: 'puzzle', label: '謎解き' },
+    { id: 'secret', label: 'メッセージページ' },
   ];
 
   return (
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 right-4 z-50 p-2 bg-white/80 backdrop-blur-sm rounded-full shadow-lg"
+        className="fixed top-4 right-4 z-50 p-2 bg-gray-300/80 backdrop-blur-sm rounded-full shadow-lg"
       >
         <div className="w-6 h-6 relative">
           <span className={`absolute w-full h-0.5 bg-black transition-all ${isOpen ? 'rotate-45 top-3' : 'top-1'}`}></span>
@@ -25,7 +25,7 @@ export default function Navigation() {
       </button>
 
       <div 
-        className={`fixed inset-0 bg-white/95 backdrop-blur-md z-40 transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed inset-0 bg-gray-200/95 backdrop-blur-md z-40 transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
         style={{
           opacity: isOpen ? '1' : '0',
           visibility: isOpen ? 'visible' : 'hidden',

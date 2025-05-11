@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+// import { Link } from 'react-router-dom';
 
 export default function TopPage() {
   const imageRef = useRef<HTMLDivElement>(null);
@@ -7,23 +8,24 @@ export default function TopPage() {
   const images = [
     {
       url: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?auto=format&fit=crop&w=2000&q=80",
-      title: "沖縄の美しいビーチ",
-      description: "最高の思い出になった沖縄旅行"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=2000&q=80",
-      title: "カフェでのひととき",
-      description: "いつも心が温かくなる時間"
+      title: "TSUTSUJI",
+      description: "2人だけのSNS「TSUTSUJI」では、二人の思い出を写真や動画と一緒に投稿できます。大切な瞬間をここに残していきましょう。",
+      link: "/sns",
+      linkText: "TSUTSUJIを見る"
     },
     {
       url: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=2000&q=80",
-      title: "特別な記念日",
-      description: "一緒に過ごせる幸せ"
+      title: "謎解きページ",
+      description: "2つの謎解き問題に挑戦してみましょう。全ての謎を解くと、秘密のページへのアクセス方法がわかります。",
+      link: "/puzzle",
+      linkText: "謎解きに挑戦"
     },
     {
       url: "https://images.unsplash.com/photo-1581022295087-35e593704911?auto=format&fit=crop&w=2000&q=80",
-      title: "素敵な思い出",
-      description: "かけがえのない瞬間"
+      title: "メッセージページ",
+      description: "特別なメッセージが隠されています。謎解きを完了すると、このページにアクセスできるようになります。",
+      link: "/secret",
+      linkText: "メッセージを確認する"
     }
   ];
 
@@ -46,6 +48,7 @@ export default function TopPage() {
   }, []);
 
   return (
+// 画面全体の背景色を白、文字色を黒
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
       <div className="relative h-screen">
@@ -88,64 +91,47 @@ export default function TopPage() {
         </div>
       </div>
 
-      {/* Gallery Section */}
-      <div className="py-24 px-4 md:px-8">
-        <h3 
-          className="text-3xl md:text-5xl font-light tracking-[0.2em] text-center mb-16 opacity-0 animate-fade-in-scroll"
-          style={{ fontFamily: 'Cormorant Garamond' }}
-        >
+      {/* コンテンツたち */}
+      <div className="py-16 px-4 md:px-8 bg-white text-black">
+        <h2 className="text-4xl font-light text-center mb-16 tracking-widest"
+            style={{ fontFamily: 'Cormorant Garamond' }}>
           GALLERY
-        </h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        </h2>
+        
+        <div className="space-y-24 max-w-6xl mx-auto">
           {images.map((item, index) => (
-            <div
-              key={index}
-              className="relative group opacity-0 animate-fade-in-scroll"
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
-                  src={item.url}
+            <div key={index} className="group">
+              {/* 1. 画像 */}
+              <div className="aspect-[16/9] overflow-hidden mb-6">
+                <img 
+                  src={item.url} 
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
-              <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center text-center p-4">
-                <h4 
-                  className="text-xl font-light mb-2"
-                  style={{ fontFamily: 'Noto Serif JP' }}
-                >
+              
+              <div className="px-4">
+                {/* 2. 本文 */}
+                <h3 className="text-2xl font-light mb-4"
+                    style={{ fontFamily: 'Noto Serif JP' }}>
                   {item.title}
-                </h4>
-                <p 
-                  className="text-sm font-light"
-                  style={{ fontFamily: 'Noto Serif JP' }}
-                >
+                </h3>
+                <p className="text-gray-700 mb-6"
+                  style={{ fontFamily: 'Noto Serif JP' }}>
                   {item.description}
                 </p>
+                
+                {/* 3. 詳細ページへのリンク */}
+                <a 
+                  href={item.link}
+                  className="inline-block border-b border-black pb-1 hover:opacity-70 transition-opacity"
+                  style={{ fontFamily: 'Noto Serif JP' }}
+                >
+                  {item.linkText}
+                </a>
               </div>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Message Section */}
-      <div className="py-24 px-4 text-center">
-        <div className="max-w-2xl mx-auto opacity-0 animate-fade-in-scroll">
-          <h3 
-            className="text-3xl md:text-4xl font-light tracking-[0.2em] mb-8"
-            style={{ fontFamily: 'Cormorant Garamond' }}
-          >
-            Thank you
-          </h3>
-          <p 
-            className="text-lg md:text-xl font-light leading-relaxed"
-            style={{ fontFamily: 'Noto Serif JP' }}
-          >
-            これからも、ずっと一緒に。<br />
-            素敵な思い出をありがとう。
-          </p>
         </div>
       </div>
 

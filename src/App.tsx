@@ -12,10 +12,9 @@ function App() {
 
   const menuItems = [
     { id: 'top', label: 'TOP' },
+    { id: 'sns', label: 'TSUTSUJI' },
     { id: 'puzzle', label: '謎解き' },
-    { id: 'schedule', label: '沖縄旅行表' },
-    { id: 'secret', label: 'シークレット' },
-    { id: 'sns', label: '2人だけのSNS' },
+    { id: 'secret', label: 'メッセージページ' },
   ];
 
   return (
@@ -26,7 +25,7 @@ function App() {
         <div>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="fixed top-4 right-4 z-50 p-2 bg-white/80 backdrop-blur-sm rounded-full shadow-lg"
+            className="fixed top-4 right-4 z-50 p-2 bg-gray-300/80 backdrop-blur-sm rounded-full shadow-lg"
           >
             <div className="w-6 h-6 relative">
               <span className={`absolute w-full h-0.5 bg-black transition-all ${menuOpen ? 'rotate-45 top-3' : 'top-1'}`}></span>
@@ -35,7 +34,7 @@ function App() {
             </div>
           </button>
 
-          <div className={`fixed inset-0 bg-white/95 backdrop-blur-md z-40 transition-transform duration-300 ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className={`fixed inset-0 bg-gray-400/20 backdrop-blur-md z-40 transition-transform duration-300 ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             <nav className="h-full flex items-center justify-center">
               <div className="text-center">
                 {menuItems.map((item) => (
@@ -45,7 +44,7 @@ function App() {
                       setCurrentPage(item.id);
                       setMenuOpen(false);
                     }}
-                    className="block py-4 px-8 text-2xl hover:text-red-500 transition-colors"
+                    className="block py-4 px-8 text-2xl hover:text-[#B8860B] transition-colors"
                   >
                     {item.label}
                   </button>
