@@ -20,12 +20,16 @@ export function useAuth() {
 
   const login = async (name: string, birthdate: string) => {
     try {
+      console.log('Attempting login with:', { name, birthdate });
+      
       const { data, error } = await supabase
         .from('users')
         .select('*')
         .eq('name', name)
         .eq('birthdate', birthdate)
         .single();
+
+      console.log('Login response:', { data, error });
 
       if (error) {
         console.error('Login error:', error);
@@ -37,10 +41,16 @@ export function useAuth() {
         return { data, error: null };
       }
 
-      return { data: null, error: new Error('User not found') };
+      return { 
+        data: null, 
+        error: new Error('ユーザーが見つかりません。名前と生年月日を確認してください。') 
+      };
     } catch (error) {
       console.error('Login error:', error);
-      return { data: null, error };
+      return { 
+        data: null, 
+        error: new Error('ログインに失敗しました。もう一度お試しください。') 
+      };
     }
   };
 
@@ -52,6 +62,7 @@ export function useAuth() {
   return {
     user,
     login,
-    logout
+    logout,
+    isAuthenticated: !!user
   };
 }

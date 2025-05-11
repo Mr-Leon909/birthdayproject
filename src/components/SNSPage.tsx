@@ -20,6 +20,7 @@ function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
     
     if (!name || !birthdate) {
       setError('名前と生年月日を入力してください。');
@@ -30,55 +31,73 @@ function Login() {
       const { data, error } = await login(name, birthdate);
       
       if (error) {
-        console.error('Login error:', error);
-        setError('ログインに失敗しました。名前と生年月日を確認してください。');
+        setError(error.message);
         return;
       }
 
       if (data) {
         navigate('/sns/timeline', { replace: true });
-      } else {
-        setError('ユーザーが見つかりません。');
       }
     } catch (err) {
       console.error('Login error:', err);
-      setError('ログインに失敗しました。');
+      setError('ログインに失敗しました。もう一度お試しください。');
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-8">
-      <h2 className="text-2xl font-bold mb-6 text-black">ログイン</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-2 text-black">名前</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded text-black"
-            placeholder="名前を入力"
-            required
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+        <div className="mb-8 text-center">
+          <img 
+            src="/assets/tsutsuji-logo.png" 
+            alt="TSUTSUJI" 
+            className="h-12 mx-auto mb-4"
           />
+          <h2 className="text-2xl font-bold text-gray-900">ログイン</h2>
         </div>
-        <div>
-          <label className="block mb-2 text-black">生年月日</label>
-          <input
-            type="date"
-            value={birthdate}
-            onChange={(e) => setBirthdate(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded text-black"
-            required
-          />
-        </div>
-        {error && <p className="text-red-500">{error}</p>}
-        <button
-          type="submit"
-          className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
-        >
-          ログイン
-        </button>
-      </form>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              名前
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500"
+              placeholder="名前を入力"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              生年月日
+            </label>
+            <input
+              type="date"
+              value={birthdate}
+              onChange={(e) => setBirthdate(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500"
+              required
+            />
+          </div>
+
+          {error && (
+            <p className="text-sm text-red-600 text-center">
+              {error}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            className="w-full bg-pink-600 text-white py-2 px-4 rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-colors"
+          >
+            ログイン
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
@@ -180,10 +199,17 @@ function Timeline() {
 }
 
 export default function SNSPage() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/timeline" element={<Timeline />} />
+      <Route 
+        path="/timeline" 
+        element={
+          isAuthenticated ? <Timeline /> : <Navigate to="/sns" replace />
+        } 
+      />
     </Routes>
   );
 }
