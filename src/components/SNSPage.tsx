@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
@@ -11,12 +11,13 @@ function Login() {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login, user } = useAuth();
+  const { login, isAuthenticated } = useAuth();
 
-  // If user is already logged in, redirect to timeline
-  if (user) {
-    return <Navigate to="/sns/timeline" replace />;
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/sns/timeline', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,8 +37,7 @@ function Login() {
       }
 
       if (data) {
-        console.log('Login successful, navigating to timeline...');
-        navigate('/sns/timeline');
+        navigate('/sns/timeline', { replace: true });
       }
     } catch (err) {
       console.error('Login error:', err);
@@ -110,7 +110,7 @@ function Timeline() {
 
   const handleLogout = () => {
     logout();
-    navigate('/sns');
+    navigate('/sns', { replace: true });
   };
 
   return (
@@ -248,11 +248,17 @@ function Profile() {
 }
 
 export default function SNSPage() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/timeline" element={<Timeline />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/timeline" element={
+        isAuthenticated ? <Timeline /> : <Navigate to="/sns" replace />
+      } />
+      <Route path="/profile" element={
+        isAuthenticated ? <Profile /> : <Navigate to="/sns" replace />
+      } />
     </Routes>
   );
 }
