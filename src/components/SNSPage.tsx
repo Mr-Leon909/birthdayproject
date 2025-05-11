@@ -15,6 +15,7 @@ function Login() {
     const { data, error } = await login(name, birthdate);
     
     if (error) {
+      console.error('Login error:', error);
       setError('ログインに失敗しました。名前と生年月日を確認してください。');
       return;
     }
@@ -60,20 +61,32 @@ function Login() {
 }
 
 function Timeline() {
+  const { profile } = useAuth();
+  
+  if (!profile) {
+    return <Navigate to="/sns" />;
+  }
+
   return (
     <div className="max-w-2xl mx-auto p-4">
       <h2 className="text-2xl font-bold mb-6 text-black">タイムライン</h2>
-      {/* タイムラインの投稿を表示 */}
+      <p className="text-black">ようこそ、{profile.name}さん</p>
     </div>
   );
 }
 
 function Profile() {
+  const { profile } = useAuth();
+  
+  if (!profile) {
+    return <Navigate to="/sns" />;
+  }
+
   return (
     <div className="max-w-2xl mx-auto p-4">
       <div className="text-center mb-8">
         <div className="w-24 h-24 rounded-full bg-gray-200 mx-auto mb-4" />
-        <h2 className="text-xl font-bold text-black">ユーザー名</h2>
+        <h2 className="text-xl font-bold text-black">{profile.name}</h2>
         <p className="text-gray-600">自己紹介文がここに表示されます</p>
         <button className="mt-4 px-4 py-2 bg-gray-100 rounded text-black">
           プロフィール編集
