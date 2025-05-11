@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import type { Database } from '../lib/database.types';
 
-type Profile = Database['public']['Tables']['profiles']['Row'];
+type User = Database['public']['Tables']['users']['Row'];
 
 export function useAuth() {
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   const login = async (name: string, birthdate: string) => {
     try {
       const { data, error } = await supabase
-        .from('profiles')
+        .from('users')
         .select()
         .eq('name', name)
         .eq('birthdate', birthdate)
@@ -21,7 +21,7 @@ export function useAuth() {
         return { data: null, error };
       }
 
-      setProfile(data);
+      setUser(data);
       return { data, error: null };
     } catch (error) {
       console.error('Login error:', error);
@@ -30,11 +30,11 @@ export function useAuth() {
   };
 
   const logout = () => {
-    setProfile(null);
+    setUser(null);
   };
 
   return {
-    profile,
+    user,
     login,
     logout
   };

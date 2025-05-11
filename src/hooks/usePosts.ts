@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import type { Post, Profile, Like, Comment } from '../lib/supabase';
+import type { Post, User, Like, Comment } from '../lib/supabase';
 
 interface PostWithDetails extends Post {
-  profiles: Profile;
+  users: User;
   likes: Like[];
   comments: Comment[];
 }
@@ -18,7 +18,7 @@ export function usePosts() {
         .from('posts')
         .select(`
           *,
-          profiles (*),
+          users (*),
           likes (*),
           comments (*)
         `)
