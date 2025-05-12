@@ -40,10 +40,14 @@ export function useAuth() {
 
       if (data) {
         setUser(data);
-        navigate('/sns/top');
+        navigate('/sns/top', { replace: true });
+        return { data, error: null };
       }
 
-      return { data, error: null };
+      return { 
+        data: null, 
+        error: new Error('ユーザーが見つかりませんでした。') 
+      };
     } catch (error) {
       console.error('Login error:', error);
       return { 
@@ -56,7 +60,7 @@ export function useAuth() {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
-    navigate('/sns/login');
+    navigate('/sns/login', { replace: true });
   };
 
   return {
