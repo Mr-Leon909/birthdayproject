@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import BirthdayIntro from './BirthdayIntro';
 import TopPage from './components/TopPage';
 import SNSPage from './components/SNSPage';
@@ -16,10 +16,10 @@ function App() {
   };
 
   const menuItems = [
-    { id: 'top', label: 'TOP' },
-    { id: 'sns', label: 'TSUTSUJI' },
-    { id: 'puzzle', label: '謎解き' },
-    { id: 'secret', label: 'メッセージページ' },
+    { id: 'top', label: 'TOP', path: '/' },
+    { id: 'sns', label: 'TSUTSUJI', path: '/sns/login' },
+    { id: 'puzzle', label: '謎解き', path: '/puzzle' },
+    { id: 'secret', label: 'メッセージページ', path: '/secret' },
   ];
 
   return (
@@ -44,16 +44,19 @@ function App() {
               <nav className="h-full flex items-center justify-center">
                 <div className="text-center">
                   {menuItems.map((item) => (
-                    <button
+                    <a
                       key={item.id}
-                      onClick={() => {
+                      href={item.path}
+                      onClick={(e) => {
+                        e.preventDefault();
                         setCurrentPage(item.id);
                         setMenuOpen(false);
+                        window.location.href = item.path;
                       }}
                       className="block py-4 px-8 text-2xl text-black hover:text-[#B8860B] transition-colors"
                     >
                       {item.label}
-                    </button>
+                    </a>
                   ))}
                 </div>
               </nav>
