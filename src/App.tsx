@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import BirthdayIntro from './BirthdayIntro';
 import TopPage from './components/TopPage';
 import SNSPage from './components/SNSPage';
@@ -44,19 +44,17 @@ function App() {
               <nav className="h-full flex items-center justify-center">
                 <div className="text-center">
                   {menuItems.map((item) => (
-                    <a
+                    <Link
                       key={item.id}
-                      href={item.path}
-                      onClick={(e) => {
-                        e.preventDefault();
+                      to={item.path}
+                      onClick={() => {
                         setCurrentPage(item.id);
                         setMenuOpen(false);
-                        window.location.href = item.path;
                       }}
                       className="block py-4 px-8 text-2xl text-black hover:text-[#B8860B] transition-colors"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </nav>
