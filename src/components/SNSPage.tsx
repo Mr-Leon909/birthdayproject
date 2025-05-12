@@ -15,7 +15,7 @@ function Login() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/sns/top', { replace: true });
+      navigate('/sns/top');
     }
   }, [isAuthenticated, navigate]);
 
@@ -37,7 +37,7 @@ function Login() {
       }
 
       if (data) {
-        navigate('/sns/top', { replace: true });
+        navigate('/sns/top');
       }
     } catch (err) {
       console.error('Login error:', err);
@@ -154,7 +154,7 @@ function Timeline() {
 
   const handleLogout = () => {
     logout();
-    navigate('/sns/login', { replace: true });
+    navigate('/sns/login');
   };
 
   return (

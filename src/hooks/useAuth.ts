@@ -38,13 +38,9 @@ export function useAuth() {
 
       if (data) {
         setUser(data);
-        return { data, error: null };
       }
 
-      return { 
-        data: null, 
-        error: new Error('ユーザーが見つかりません。名前と生年月日を確認してください。') 
-      };
+      return { data, error: null };
     } catch (error) {
       console.error('Login error:', error);
       return { 
