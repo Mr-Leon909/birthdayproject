@@ -20,13 +20,13 @@ export default function Timeline() {
     <div className="min-h-screen bg-white">
       {/* ヘッダー */}
       <div className="sticky top-0 bg-white border-b border-gray-200 z-10">
-        <div className="max-w-2xl mx-auto px-4 py-2">
+        <div className="max-w-2xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <img 
-                src="/tsutsuji-logo.png" 
+                src="/logo.png" 
                 alt="TSUTSUJI" 
-                className="h-8 w-auto"
+                className="h-10 w-auto"
               />
             </div>
           </div>
