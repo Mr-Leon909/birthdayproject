@@ -1,0 +1,8 @@
+src/components/Navigation.tsx
+src/components/PuzzlePage.tsx
+src/components/SecretPage.tsx
+src/components/SNSPage.tsx
+src/components/TopPage.tsx
+src/components/TravelSchedule.tsx
+src/MessagePage.tsx
+src/BirthdayIntro.tsx
