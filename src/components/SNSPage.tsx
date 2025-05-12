@@ -3,7 +3,6 @@ import { useAuth } from "../hooks/useAuth";
 import Timeline from "./sns/Timeline";
 import MyPosts from "./sns/MyPosts";
 import PostDetail from "./sns/PostDetail";
-import CreatePost from "./sns/CreatePost";
 import Login from "./sns/Login";
 
 export default function SNSPage() {
@@ -20,7 +19,6 @@ export default function SNSPage() {
       <Route path="/top" element={<Timeline />} />
       <Route path="/myposts" element={<MyPosts />} />
       <Route path="/mypost/:id" element={<PostDetail />} />
-      <Route path="/post" element={<CreatePost />} />
       <Route path="/:userId/post/:id" element={<PostDetail />} />
     </Routes>
   );
