@@ -141,7 +141,15 @@ function Timeline() {
             {posts.map((post) => (
               <article key={post.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
                 <div className="p-4 flex items-center space-x-3">
-                  <div className="w-8 h-8 rounded-full bg-gray-200"></div>
+                  <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+                    {post.users.avatar_url && (
+                      <img
+                        src={post.users.avatar_url}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                  </div>
                   <span className="font-medium">{post.users.name}</span>
                 </div>
                 
@@ -159,7 +167,7 @@ function Timeline() {
                       onClick={() => toggleLike(post.id, user.id)}
                       className="text-gray-700 hover:text-red-500 transition-colors"
                     >
-                      <Heart className="w-6 h-6" />
+                      <Heart className={`w-6 h-6 ${post.likes.some(like => like.user_id === user.id) ? 'fill-red-500 text-red-500' : ''}`} />
                     </button>
                     <button className="text-gray-700 hover:text-blue-500 transition-colors">
                       <MessageCircle className="w-6 h-6" />
@@ -220,7 +228,15 @@ function Profile() {
 
       <div className="max-w-2xl mx-auto p-4">
         <div className="text-center mb-8">
-          <div className="w-24 h-24 rounded-full bg-gray-200 mx-auto mb-4"></div>
+          <div className="w-24 h-24 rounded-full bg-gray-200 mx-auto mb-4 overflow-hidden">
+            {user.avatar_url && (
+              <img
+                src={user.avatar_url}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
           <h2 className="text-xl font-bold">{user.name}</h2>
           <p className="text-gray-600 mt-2">
             誕生日: {format(new Date(user.birthdate), 'yyyy年M月d日')}
