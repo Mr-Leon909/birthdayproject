@@ -1,8 +1,8 @@
 /*
-  # Renameusers table to users and update relations
+  # Rename profiles table to users and update relations
 
   1. Changes
-    - Renameusers table to users
+    - Rename profiles table to users
     - Update all foreign key references to point to users table
     - Recreate policies for users table
     - Reinsert initial user data
@@ -15,9 +15,9 @@
 DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS likes CASCADE;
 DROP TABLE IF EXISTS posts CASCADE;
-DROP TABLE IF EXISTSusers CASCADE;
+DROP TABLE IF EXISTS profiles CASCADE;
 
--- Create users table (renamed fromusers)
+-- Create users table (renamed from profiles)
 CREATE TABLE users (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
