@@ -3,12 +3,12 @@
 
   1. Changes
     - Drop existing tables if they exist to ensure clean state
-    - Recreate uses table with correct schema
+    - Recreate user table with correct schema
     - Insert correct initial user data
     - Set up proper RLS policies
 
   2. Security
-    - Enable RLS on uses table
+    - Enable RLS on user table
     - Add policies for authenticated users
 */
 
@@ -16,10 +16,10 @@
 DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS likes CASCADE;
 DROP TABLE IF EXISTS posts CASCADE;
-DROP TABLE IF EXISTS uses CASCADE;
+DROP TABLE IF EXISTS user CASCADE;
 
--- Create uses table
-CREATE TABLE uses (
+-- Create user table
+CREATE TABLE user (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
   birthdate date NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE uses (
 -- Create posts table with proper indexes
 CREATE TABLE posts (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid REFERENCES uses(id) ON DELETE CASCADE NOT NULL,
+  user_id uuid REFERENCES user(id) ON DELETE CASCADE NOT NULL,
   content text,
   media_url text NOT NULL,
   created_at timestamptz DEFAULT now()
@@ -43,7 +43,7 @@ CREATE INDEX idx_posts_created_at ON posts(created_at DESC);
 CREATE TABLE likes (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id uuid REFERENCES posts(id) ON DELETE CASCADE NOT NULL,
-  user_id uuid REFERENCES uses(id) ON DELETE CASCADE NOT NULL,
+  user_id uuid REFERENCES user(id) ON DELETE CASCADE NOT NULL,
   created_at timestamptz DEFAULT now(),
   UNIQUE(post_id, user_id)
 );
@@ -55,7 +55,7 @@ CREATE INDEX idx_likes_user_id ON likes(user_id);
 CREATE TABLE comments (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id uuid REFERENCES posts(id) ON DELETE CASCADE NOT NULL,
-  user_id uuid REFERENCES uses(id) ON DELETE CASCADE NOT NULL,
+  user_id uuid REFERENCES user(id) ON DELETE CASCADE NOT NULL,
   content text NOT NULL,
   created_at timestamptz DEFAULT now()
 );
@@ -64,20 +64,20 @@ CREATE INDEX idx_comments_post_id ON comments(post_id);
 CREATE INDEX idx_comments_user_id ON comments(user_id);
 
 -- Enable Row Level Security
-ALTER TABLE uses ENABLE ROW LEVEL SECURITY;
+ALTER TABLE user ENABLE ROW LEVEL SECURITY;
 ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE likes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE comments ENABLE ROW LEVEL SECURITY;
 
 -- Create policies
-CREATE POLICY "Allow all users to read uses"
-  ON uses
+CREATE POLICY "Allow all users to read user"
+  ON user
   FOR SELECT
   TO authenticated
   USING (true);
 
-CREATE POLICY "Allow users to update own profile"
-  ON uses
+CREATE POLICY "Allow users to update own user"
+  ON user
   FOR UPDATE
   TO authenticated
   USING (auth.uid() = id);
@@ -149,7 +149,7 @@ CREATE POLICY "Allow users to delete own comments"
   USING (auth.uid() = user_id);
 
 -- Insert initial users with correct data
-INSERT INTO uses (id, name, birthdate)
+INSERT INTO user (id, name, birthdate)
 VALUES 
   ('d7bed82f-4c32-4891-a6e6-2c53137fe218', 'あすか', '1995-05-18'),
   ('e9bed82f-4c32-4891-a6e6-2c53137fe219', 'ひびき', '1996-11-13');

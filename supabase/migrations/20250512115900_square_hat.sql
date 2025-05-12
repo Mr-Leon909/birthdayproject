@@ -2,7 +2,7 @@
   # Users table setup
 
   1. Tables
-    - `users` table with basic profile information
+    - `users` table with basic user information
       - `id` (uuid, primary key)
       - `name` (text, not null)
       - `birthdate` (date, not null)

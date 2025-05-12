@@ -2,7 +2,7 @@
   # TSUTSUJI Social Media Platform Schema
 
   1. New Tables
-    - `uses`
+    - `user`
       - `id` (uuid, primary key)
       - `name` (text)
       - `birthdate` (date)
@@ -11,7 +11,7 @@
 
     - `posts`
       - `id` (uuid, primary key)
-      - `user_id` (uuid, references uses)
+      - `user_id` (uuid, references user)
       - `content` (text)
       - `media_url` (text)
       - `created_at` (timestamp)
@@ -19,13 +19,13 @@
     - `likes`
       - `id` (uuid, primary key)
       - `post_id` (uuid, references posts)
-      - `user_id` (uuid, references uses)
+      - `user_id` (uuid, references user)
       - `created_at` (timestamp)
 
     - `comments`
       - `id` (uuid, primary key)
       - `post_id` (uuid, references posts)
-      - `user_id` (uuid, references uses)
+      - `user_id` (uuid, references user)
       - `content` (text)
       - `created_at` (timestamp)
 
@@ -34,8 +34,8 @@
     - Add policies for authenticated users
 */
 
--- Create uses table
-CREATE TABLE IF NOT EXISTS uses (
+-- Create user table
+CREATE TABLE IF NOT EXISTS user (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
   birthdate date NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS uses (
 -- Create posts table with proper indexes
 CREATE TABLE IF NOT EXISTS posts (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid REFERENCES uses(id) ON DELETE CASCADE NOT NULL,
+  user_id uuid REFERENCES user(id) ON DELETE CASCADE NOT NULL,
   content text,
   media_url text NOT NULL,
   created_at timestamptz DEFAULT now()
@@ -59,7 +59,7 @@ CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts(created_at DESC);
 CREATE TABLE IF NOT EXISTS likes (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id uuid REFERENCES posts(id) ON DELETE CASCADE NOT NULL,
-  user_id uuid REFERENCES uses(id) ON DELETE CASCADE NOT NULL,
+  user_id uuid REFERENCES user(id) ON DELETE CASCADE NOT NULL,
   created_at timestamptz DEFAULT now(),
   UNIQUE(post_id, user_id)
 );
@@ -71,7 +71,7 @@ CREATE INDEX IF NOT EXISTS idx_likes_user_id ON likes(user_id);
 CREATE TABLE IF NOT EXISTS comments (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id uuid REFERENCES posts(id) ON DELETE CASCADE NOT NULL,
-  user_id uuid REFERENCES uses(id) ON DELETE CASCADE NOT NULL,
+  user_id uuid REFERENCES user(id) ON DELETE CASCADE NOT NULL,
   content text NOT NULL,
   created_at timestamptz DEFAULT now()
 );
@@ -80,20 +80,20 @@ CREATE INDEX IF NOT EXISTS idx_comments_post_id ON comments(post_id);
 CREATE INDEX IF NOT EXISTS idx_comments_user_id ON comments(user_id);
 
 -- Enable Row Level Security
-ALTER TABLE uses ENABLE ROW LEVEL SECURITY;
+ALTER TABLE user ENABLE ROW LEVEL SECURITY;
 ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE likes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE comments ENABLE ROW LEVEL SECURITY;
 
 -- Create policies
-CREATE POLICY "Allow all users to read uses"
-  ON uses
+CREATE POLICY "Allow all users to read user"
+  ON user
   FOR SELECT
   TO authenticated
   USING (true);
 
-CREATE POLICY "Allow users to update own profile"
-  ON uses
+CREATE POLICY "Allow users to update own user"
+  ON user
   FOR UPDATE
   TO authenticated
   USING (auth.uid() = id);
@@ -165,7 +165,7 @@ CREATE POLICY "Allow users to delete own comments"
   USING (auth.uid() = user_id);
 
 -- Insert initial users (you and your girlfriend)
-INSERT INTO uses (id, name, birthdate)
+INSERT INTO user (id, name, birthdate)
 VALUES 
   ('d7bed82f-4c32-4891-a6e6-2c53137fe218', 'Asuka', '1994-05-18'),
   ('e9bed82f-4c32-4891-a6e6-2c53137fe219', 'Boyfriend', '1990-01-01');
