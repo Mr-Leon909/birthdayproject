@@ -11,7 +11,7 @@
 
     - `posts`
       - `id` (uuid, primary key)
-      - `user_id` (uuid, references profiles)
+      - `user_id` (uuid, referencesusers)
       - `content` (text)
       - `media_url` (text)
       - `created_at` (timestamp)
@@ -19,13 +19,13 @@
     - `likes`
       - `id` (uuid, primary key)
       - `post_id` (uuid, references posts)
-      - `user_id` (uuid, references profiles)
+      - `user_id` (uuid, referencesusers)
       - `created_at` (timestamp)
 
     - `comments`
       - `id` (uuid, primary key)
       - `post_id` (uuid, references posts)
-      - `user_id` (uuid, references profiles)
+      - `user_id` (uuid, referencesusers)
       - `content` (text)
       - `created_at` (timestamp)
 
@@ -34,8 +34,8 @@
     - Add policies for authenticated users
 */
 
--- Create profiles table
-CREATE TABLE IF NOT EXISTS profiles (
+-- Createusers table
+CREATE TABLE IF NOT EXISTSusers (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
   birthdate date NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS profiles (
 -- Create posts table with proper indexes
 CREATE TABLE IF NOT EXISTS posts (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+  user_id uuid REFERENCESusers(id) ON DELETE CASCADE NOT NULL,
   content text,
   media_url text NOT NULL,
   created_at timestamptz DEFAULT now()
@@ -59,7 +59,7 @@ CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts(created_at DESC);
 CREATE TABLE IF NOT EXISTS likes (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id uuid REFERENCES posts(id) ON DELETE CASCADE NOT NULL,
-  user_id uuid REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+  user_id uuid REFERENCESusers(id) ON DELETE CASCADE NOT NULL,
   created_at timestamptz DEFAULT now(),
   UNIQUE(post_id, user_id)
 );
@@ -71,7 +71,7 @@ CREATE INDEX IF NOT EXISTS idx_likes_user_id ON likes(user_id);
 CREATE TABLE IF NOT EXISTS comments (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id uuid REFERENCES posts(id) ON DELETE CASCADE NOT NULL,
-  user_id uuid REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+  user_id uuid REFERENCESusers(id) ON DELETE CASCADE NOT NULL,
   content text NOT NULL,
   created_at timestamptz DEFAULT now()
 );
@@ -80,24 +80,24 @@ CREATE INDEX IF NOT EXISTS idx_comments_post_id ON comments(post_id);
 CREATE INDEX IF NOT EXISTS idx_comments_user_id ON comments(user_id);
 
 -- Enable Row Level Security
-ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLEusers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE likes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE comments ENABLE ROW LEVEL SECURITY;
 
 -- Create policies
 CREATE POLICY "Profiles are viewable by everyone"
-  ON profiles
+  ONusers
   FOR SELECT
   USING (true);
 
-CREATE POLICY "Users can insert their own profile"
-  ON profiles
+CREATE POLICY "Users can insert their ownuser"
+  ONusers
   FOR INSERT
   WITH CHECK (true);
 
-CREATE POLICY "Users can update own profile"
-  ON profiles
+CREATE POLICY "Users can update ownuser"
+  ONusers
   FOR UPDATE
   USING (auth.uid() = id);
 
@@ -157,7 +157,7 @@ CREATE POLICY "Users can delete own comments"
   USING (auth.uid() = user_id);
 
 -- Insert initial users
-INSERT INTO profiles (name, birthdate)
+INSERT INTOusers (name, birthdate)
 VALUES 
   ('あすか', '1995-05-18'),
   ('ひびき', '1996-11-13');
