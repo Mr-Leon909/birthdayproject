@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import type { Database } from '../lib/database.types';
+import { useNavigate } from 'react-router-dom';
 
 type User = Database['public']['Tables']['users']['Row'];
 
@@ -9,6 +10,7 @@ export function useAuth() {
     const savedUser = localStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -38,6 +40,7 @@ export function useAuth() {
 
       if (data) {
         setUser(data);
+        navigate('/sns/top');
       }
 
       return { data, error: null };
@@ -53,6 +56,7 @@ export function useAuth() {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    navigate('/sns/login');
   };
 
   return {
