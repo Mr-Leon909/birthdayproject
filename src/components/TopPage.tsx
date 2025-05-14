@@ -1,14 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function TopPage() {
-  const imageRef = useRef<HTMLDivElement>(null);
-  const currentImageIndex = useRef(0);
   const navigate = useNavigate();
   
   const images = [
     {
-      url: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?auto=format&fit=crop&w=2000&q=80",
+      url: "../../assets/tsutsuji.png",
       title: "TSUTSUJI",
       description: "2人だけのSNS「TSUTSUJI」では、二人の思い出を写真や動画と一緒に投稿できます。大切な瞬間をここに残していきましょう。",
       link: "/sns",
@@ -18,7 +16,7 @@ export default function TopPage() {
       url: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=2000&q=80",
       title: "謎解きページ",
       description: "2つの謎解き問題に挑戦してみましょう。全ての謎を解くと、秘密のページへのアクセス方法がわかります。",
-      link: "/puzzle",
+      link: "/quiz",
       linkText: "謎解きに挑戦"
     },
     {
@@ -30,68 +28,52 @@ export default function TopPage() {
     }
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (imageRef.current) {
-        imageRef.current.style.opacity = '0';
-        
-        setTimeout(() => {
-          currentImageIndex.current = (currentImageIndex.current + 1) % images.length;
-          if (imageRef.current) {
-            imageRef.current.style.backgroundImage = `url(${images[currentImageIndex.current].url})`;
-            imageRef.current.style.opacity = '1';
-          }
-        }, 1000);
-      }
-    }, 3000);
+  // ギャラリー用の画像URLリスト
+  const galleryImages = [
+    "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=2000&q=80",
+    "https://images.unsplash.com/photo-1581022295087-35e593704911?auto=format&fit=crop&w=2000&q=80",
+    "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2000&q=80",
+    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=2000&q=80",
+    "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2000&q=80"
+  ];
 
-    return () => clearInterval(interval);
+  useEffect(() => {
+    const items = document.querySelectorAll<HTMLDivElement>('.gallery_item');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    items.forEach(item => observer.observe(item));
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-black">
-      <div className="relative h-screen">
-        <div
-          ref={imageRef}
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
-          style={{
-            backgroundImage: `url(${images[0].url})`,
-            filter: 'brightness(0.5)'
-          }}
-        />
-
-        <div className="relative z-10 h-full flex flex-col items-center justify-center opacity-0 animate-fade-in">
-          <h1 
-            className="text-5xl md:text-8xl font-light tracking-[0.2em] mb-8 text-white"
-            style={{ fontFamily: 'Cormorant Garamond' }}
-          >
-            30th anniversary
-          </h1>
-          <h2 
-            className="text-4xl md:text-7xl font-light tracking-[0.2em] mb-16 text-white"
-            style={{ fontFamily: 'Cormorant Garamond' }}
-          >
-            Happy Birthday
-          </h2>
-          <p 
-            className="text-xl md:text-3xl font-light tracking-[0.2em] mb-8 text-white"
-            style={{ fontFamily: 'Noto Serif JP' }}
-          >
-            最高のひと時を最高の場所で
-          </p>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 animate-fade-in-delay">
-          <div className="w-[1px] h-16 bg-white/50 mb-4 animate-scroll-down" />
-          <p className="text-sm tracking-[0.2em] text-white/70">SCROLL</p>
+    <div className="min-h-screen bg-white text-black">
+      <div>
+        <div style={{ height: '1px', backgroundColor: '#7b7b7b', margin: '16px 0' }} />
+        <img src="../../assets/top.png" alt="" />
+        <img src="../../assets/image.webp" alt="" />
+        <div className="bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 animate-fade-in-delay">
+          <div className="w-[1px] h-16 bg-black/50 mb-4 animate-scroll-down" />
+          <p className="text-sm tracking-[0.2em] text-black/70">SCROLL</p>
         </div>
       </div>
-
       <div className="py-16 px-4 md:px-8 bg-white">
-        <h2 className="text-4xl font-light text-center mb-16 tracking-widest"
-            style={{ fontFamily: 'Cormorant Garamond' }}>
-          GALLERY
-        </h2>
+        <div className="gallery_container max-w-6xl mx-auto">
+          <h2 className="text-4xl font-light text-center mb-16 tracking-widest"
+              style={{ fontFamily: 'Cormorant Garamond' }}>
+            GALLERY
+          </h2>
+          {galleryImages.map((src, index) => (
+            <div key={index} className={`gallery_item flex mb-10`}>
+              <img src={src} alt="" className={`w-full animate-fade-in-scroll index-${index}`} />
+            </div>
+          ))}
+        </div>
         
         <div className="space-y-24 max-w-6xl mx-auto">
           {images.map((item, index) => (
@@ -110,7 +92,7 @@ export default function TopPage() {
                   {item.title}
                 </h3>
                 <p className="text-gray-700 mb-6"
-                   style={{ fontFamily: 'Noto Serif JP' }}>
+                  style={{ fontFamily: 'Noto Serif JP' }}>
                   {item.description}
                 </p>
                 
@@ -141,15 +123,15 @@ export default function TopPage() {
         }
 
         .animate-fade-in {
-          animation: fadeIn 1s ease-out forwards;
+          animation: fadeIn 2s ease-out forwards;
         }
 
         .animate-fade-in-delay {
-          animation: fadeIn 1s ease-out 1s forwards;
+          animation: fadeIn 2s ease-out 1s forwards;
         }
 
         .animate-fade-in-scroll {
-          animation: fadeIn 1s ease-out forwards;
+          animation: fadeIn 2s ease-out forwards;
           animation-play-state: paused;
         }
 

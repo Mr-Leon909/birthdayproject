@@ -1,14 +1,14 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-
   const menuItems = [
-    { id: 'top', label: 'TOP' },
-    { id: 'sns', label: 'TSUTSUJI' },
+    { id: 'top', label: 'TOP', link: "/" },
+    { id: 'sns', label: 'TSUTSUJI', link: "/sns" },
     { id: 'schedule', label: '沖縄旅行表' },
-    { id: 'puzzle', label: '謎解き' },
-    { id: 'secret', label: 'メッセージページ' },
+    { id: 'puzzle', label: '謎解き', link: "/quiz"},
+    { id: 'secret', label: 'メッセージページ', link: "/secret" },
   ];
 
   return (
@@ -35,7 +35,7 @@ export default function Navigation() {
         <nav className="h-full flex items-center justify-center">
           <div className="text-center">
             {menuItems.map((item) => (
-              <button
+              <a
                 key={item.id}
                 onClick={() => {
                   setIsOpen(false);
@@ -48,9 +48,10 @@ export default function Navigation() {
                   transition: 'opacity 0.3s ease, transform 0.3s ease',
                   transitionDelay: `${menuItems.indexOf(item) * 0.1}s`
                 }}
+                href={item.link ? item.link : undefined}
               >
                 {item.label}
-              </button>
+              </a>
             ))}
           </div>
         </nav>
