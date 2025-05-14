@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ImageWithBackground from './ImageWithBackground';
 
 export default function TopPage() {
   const navigate = useNavigate();
@@ -56,7 +57,30 @@ export default function TopPage() {
       <div>
         <div style={{ height: '1px', backgroundColor: '#7b7b7b', margin: '16px 0' }} />
         <img src="../../assets/top.png" alt="" />
-        <img src="../../assets/image.webp" alt="" />
+        
+        <div className="min-h-screen bg-white text-black p-8">
+      <div>
+        <div style={{ height: "1px", backgroundColor: "#7b7b7b", margin: "16px 0" }} />
+
+        {/* トップ画像 */}
+        <div className="mb-8">
+          <img src="/assets/top.png" alt="トップ画像" className="w-full" />
+        </div>
+
+        {/* 背景付き画像 */}
+        <div className="my-8">
+          <ImageWithBackground
+            src="/assets/image.webp"
+            alt="背景付き画像"
+            width={600}
+            height={400}
+            backgroundOffset={{ x: 20, y: 20 }}
+            backgroundColor="#0493a6"
+          />
+        </div>
+      </div>
+    </div>
+
         <div className="bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 animate-fade-in-delay">
           <div className="w-[1px] h-16 bg-black/50 mb-4 animate-scroll-down" />
           <p className="text-sm tracking-[0.2em] text-black/70">SCROLL</p>
