@@ -58,7 +58,7 @@ export default function TopPage() {
         <div style={{ height: '1px', backgroundColor: '#7b7b7b', margin: '16px 0' }} />
         <img src="../../assets/top.png" alt="" />
         
-        <div className="min-h-screen bg-white text-black p-8">
+        <div className="min-h-screen bg-white text-black">
       <div>
         <div style={{ height: "1px", backgroundColor: "#7b7b7b", margin: "16px 0" }} />
 
@@ -67,15 +67,19 @@ export default function TopPage() {
           <img src="/assets/top.png" alt="トップ画像" className="w-full" />
         </div>
 
-        {/* 背景付き画像 */}
-        <div className="my-8">
-          <ImageWithBackground
+        {/* 横幅いっぱいの背景付き画像 */}
+        <div className="relative w-full">
+          {/* 背景色のオフセット用ボックス */}
+          <div
+            className="absolute rounded-sm bg-[#0493a6]"
+            style={{ top: '20px', left: '20px', width: '95%', height: '100%' }}
+          />
+
+          {/* 画像本体 */}
+          <img
             src="/assets/image.webp"
             alt="背景付き画像"
-            width={600}
-            height={400}
-            backgroundOffset={{ x: 20, y: 20 }}
-            backgroundColor="#0493a6"
+            className="relative w-[95%] block"
           />
         </div>
       </div>
