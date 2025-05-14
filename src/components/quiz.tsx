@@ -10,13 +10,13 @@ export default function PuzzlePage() {
 
   const handleSubmit1 = (e: React.FormEvent) => {
     e.preventDefault();
-    if (answer1.toLowerCase() === 'correct1') {
+    if (answer1.toLowerCase() === 'correct1') { // 簡単のため、正解を 'correct1' とします
       setSolved1(true);
     }
   };
   const handleSubmit2 = (e: React.FormEvent) => {
     e.preventDefault();
-    if (answer2.toLowerCase() === 'correct2') {
+    if (answer2.toLowerCase() === 'correct2') { // 簡単のため、正解を 'correct2' とします
       setSolved2(true);
     }
     // 両問題正解で暗証番号表示
@@ -26,73 +26,86 @@ export default function PuzzlePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white p-8">
+    <div className="min-h-screen bg-white p-8 flex flex-col"> {/* p-8 は維持しつつ、コンテンツが少ない場合にSCROLLが下に来るようにflex-colを追加 */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-2xl mx-auto"
+        className="max-w-2xl mx-auto w-full flex-grow flex flex-col relative" // relative と w-full, flex-grow, flex, flex-col を追加
       >
-        <h1 className="text-3xl font-bold mb-8">謎解きページ</h1>
+        <h1 className="text-3xl font-bold mb-8 text-black text-center">謎を解き、ロックを解除せよ</h1>
 
-        {/* 問題1 */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">問1</h2>
-          {!solved1 ? (
-            <>
-              <p className="text-lg mb-4">テキストテキストテキストテキストテキストテキスト</p>
-              <div className="bg-gray-100 p-4 rounded-lg mb-4">
-                <div className="w-full h-64 bg-gray-200 rounded flex items-center justify-center">
-                  イラスト図が入ります
+
+        {/* SCROLLインジケータ */}
+          <div className="flex flex-col items-center my-8"> // my-8などでマージン調整
+            <div className="w-px h-24 bg-gray-500 mb-2.5"></div>
+            <span className="text-sm text-gray-600 tracking-wider">SCROLL</span>
+          </div>
+
+        {/* 問題のコンテンツエリア */}
+        <div className="flex-grow"> {/* このdivが問題セクションをラップし、SCROLLを一番下に押しやる */}
+          {/* 問題1 */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">問1</h2>
+            {!solved1 ? (
+              <>
+                <p className="text-lg mb-4">テキストテキストテキストテキストテキストテキスト</p>
+                <div className="bg-gray-100 p-4 rounded-lg mb-4">
+                  <div className="w-full h-64 bg-gray-200 rounded flex items-center justify-center">
+                    イラスト図が入ります
+                  </div>
                 </div>
-              </div>
-              <form onSubmit={handleSubmit1} className="space-y-4">
-                <input
-                  type="text"
-                  value={answer1}
-                  onChange={(e) => setAnswer1(e.target.value)}
-                  placeholder="回答を入力してください"
-                  className="w-full p-3 border border-gray-300 rounded"
-                />
-                <button
-                  type="submit"
-                  className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
-                >送信</button>
-              </form>
-            </>
-          ) : (
-            <p className="text-green-600">正解！次の問題へ進んでください。</p>
+                <form onSubmit={handleSubmit1} className="space-y-4">
+                  <input
+                    type="text"
+                    value={answer1}
+                    onChange={(e) => setAnswer1(e.target.value)}
+                    placeholder="回答を入力してください"
+                    className="w-full p-3 border border-gray-300 rounded"
+                  />
+                  <button
+                    type="submit"
+                    className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
+                  >送信</button>
+                </form>
+              </>
+            ) : (
+              <p className="text-green-600">正解！次の問題へ進んでください。</p>
+            )}
+          </section>
+
+          {/* 問題2 */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">問2</h2>
+            {!solved2 ? (
+              <>
+                <p className="text-lg mb-4">テキストテキストテキストテキストテキストテキスト</p>
+                <form onSubmit={handleSubmit2} className="space-y-4">
+                  <input
+                    type="text"
+                    value={answer2}
+                    onChange={(e) => setAnswer2(e.target.value)}
+                    placeholder="回答を入力してください"
+                    className="w-full p-3 border border-gray-300 rounded"
+                  />
+                  <button
+                    type="submit"
+                    className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
+                  >送信</button>
+                </form>
+              </>
+            ) : (
+              <p className="text-green-600">正解！</p>
+            )}
+          </section>
+
+          {/* 暗証番号表示 */}
+          {showPin && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-8">
+              <p className="text-2xl font-bold">暗証番号: 1234</p>
+            </motion.div>
           )}
-        </section>
-        {/* 問題2 */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">問2</h2>
-          {!solved2 ? (
-            <>
-              <p className="text-lg mb-4">テキストテキストテキストテキストテキストテキスト</p>
-              <form onSubmit={handleSubmit2} className="space-y-4">
-                <input
-                  type="text"
-                  value={answer2}
-                  onChange={(e) => setAnswer2(e.target.value)}
-                  placeholder="回答を入力してください"
-                  className="w-full p-3 border border-gray-300 rounded"
-                />
-                <button
-                  type="submit"
-                  className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
-                >送信</button>
-              </form>
-            </>
-          ) : (
-            <p className="text-green-600">正解！</p>
-          )}
-        </section>
-        {/* 暗証番号表示 */}
-        {showPin && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-8">
-            <p className="text-2xl font-bold">暗証番号: 1234</p>
-          </motion.div>
-        )}
+        </div>
+
       </motion.div>
     </div>
   );

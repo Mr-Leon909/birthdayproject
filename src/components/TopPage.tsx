@@ -9,21 +9,21 @@ export default function TopPage() {
     {
       url: "../../assets/tsutsuji.png",
       title: "TSUTSUJI",
-      description: "2人だけのSNS「TSUTSUJI」では、二人の思い出を写真や動画と一緒に投稿できます。大切な瞬間をここに残していきましょう。",
+      description: "世界に1つしかない2人だけのSNS「TSUTSUJI」ここでは、二人の思い出を写真や動画と一緒に投稿できます。大切な瞬間をTSUTSUJIに残そう。",
       link: "/sns",
       linkText: "TSUTSUJIへログイン"
     },
     {
-      url: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=2000&q=80",
+      url: "../../assets/quiz.png",
       title: "謎解きページ",
-      description: "2つの謎解き問題に挑戦してみましょう。全ての謎を解くと、秘密のページへのアクセス方法がわかります。",
+      description: "2つの謎解き問題に挑戦してみましょう。全ての謎を解くと、秘密のページと南京錠のアクセス方法がわかります。",
       link: "/quiz",
       linkText: "謎解きに挑戦"
     },
     {
-      url: "https://images.unsplash.com/photo-1581022295087-35e593704911?auto=format&fit=crop&w=2000&q=80",
-      title: "メッセージページ",
-      description: "特別なメッセージが隠されています。謎解きを完了すると、このページにアクセスできるようになります。",
+      url: "../../assets/SecretMessage.png",
+      title: "Secret of message",
+      description: "明日香への特別なメッセージです。謎解きを完了すると、このページにアクセスできるようになります。",
       link: "/secret",
       linkText: "メッセージを確認する"
     }
@@ -85,19 +85,24 @@ export default function TopPage() {
       </div>
     </div>
 
-        <div className="bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 animate-fade-in-delay">
-          <div className="w-[1px] h-16 bg-black/50 mb-4 animate-scroll-down" />
-          <p className="text-sm tracking-[0.2em] text-black/70">SCROLL</p>
+      <div className="bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 animate-fade-in-delay">
+        <div className="w-[1px] h-16 bg-black/50 mb-4 animate-scroll-down" />
+        <p className="text-sm tracking-[0.2em] text-black/70">SCROLL</p>
         </div>
       </div>
-      <div className="py-16 px-4 md:px-8 bg-white">
+
+      <div className="thankYou">
+        <img src="../../assets/thankYouAnniversary.png" alt="" className='animate-fade-in-delay'/>
+      </div>
+
+      <div className="py-16 bg-white">
         <div className="gallery_container max-w-6xl mx-auto">
           <h2 className="text-4xl font-light text-center mb-16 tracking-widest"
               style={{ fontFamily: 'Cormorant Garamond' }}>
             GALLERY
           </h2>
           {galleryImages.map((src, index) => (
-            <div key={index} className={`gallery_item flex mb-10`}>
+            <div key={index} className='gallery_item flex mb-10'>
               <img src={src} alt="" className={`w-full animate-fade-in-scroll index-${index}`} />
             </div>
           ))}
@@ -116,11 +121,11 @@ export default function TopPage() {
               
               <div className="px-4">
                 <h3 className="text-2xl font-light mb-4 text-black"
-                    style={{ fontFamily: 'Noto Serif JP' }}>
+                    style={{ fontFamily: 'font-sans', fontWeight: 'bolder' }}>
                   {item.title}
                 </h3>
                 <p className="text-gray-700 mb-6"
-                  style={{ fontFamily: 'Noto Serif JP' }}>
+                  style={{ fontFamily: 'font-sans' }}>
                   {item.description}
                 </p>
                 
