@@ -1,15 +1,111 @@
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// カスタムポップアップコンポーネント
+function ResultPopup({ isOpen, onClose, isCorrect, message, onNext }) {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50"
+            onClick={onClose}
+          />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            className={`relative bg-white rounded-lg p-8 max-w-md mx-auto shadow-xl ${isCorrect ? 'border-4 border-green-500' : 'border-4 border-red-500'}`}
+          >
+            <h3 className={`text-2xl font-bold mb-4 ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
+              {isCorrect ? '正解！' : '残念！'}
+            </h3>
+            <div className="mb-6 whitespace-pre-wrap text-black">
+              {message}
+            </div>
+            <div className="flex justify-end space-x-3">
+              <button 
+                onClick={onClose}
+                className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition-colors"
+              >
+                閉じる
+              </button>
+              {isCorrect && onNext && (
+                <button 
+                  onClick={onNext}
+                  className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                >
+                  次へ進む
+                </button>
+              )}
+            </div>
+            {isCorrect && (
+              <motion.div 
+                className="absolute -top-10 -left-10 -right-10 -bottom-10 pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <div className="absolute inset-0 overflow-hidden">
+                  {[...Array(20)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute"
+                      initial={{
+                        x: Math.random() * 100 - 50 + "%",
+                        y: -20,
+                        scale: Math.random() * 0.5 + 0.5,
+                      }}
+                      animate={{
+                        y: ["0%", "100%"],
+                        x: [
+                          `${Math.random() * 100 - 50}%`,
+                          `${Math.random() * 100 - 50}%`,
+                        ],
+                        opacity: [1, 0],
+                      }}
+                      transition={{
+                        duration: Math.random() * 2 + 1,
+                        ease: "easeOut",
+                        delay: Math.random() * 0.5,
+                      }}
+                      style={{
+                        background: [
+                          "#FFD700",
+                          "#FF69B4",
+                          "#00CED1",
+                          "#FF6347",
+                          "#7B68EE",
+                        ][Math.floor(Math.random() * 5)],
+                        borderRadius: "50%",
+                        width: `${Math.random() * 10 + 5}px`,
+                        height: `${Math.random() * 10 + 5}px`,
+                      }}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}
 
 // Quiz1: 1問目のコンポーネント
 function Quiz1() {
   const [answer, setAnswer] = useState('');
   const [solved, setSolved] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
   const navigate = useNavigate();
 
   const errorMessage = '残念！間違えているようだぁ！';
-  const correctMessage = 'congratulation！！正解です。では、この回答を1日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
+  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答を1日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,11 +115,24 @@ function Quiz1() {
     );
     
     if (isCorrect) {
-      alert(correctMessage);
-      setSolved(true);
+      setIsCorrect(true);
+      setShowPopup(true);
     } else {
-      alert(errorMessage);
+      setIsCorrect(false);
+      setShowPopup(true);
     }
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    if (isCorrect) {
+      setSolved(true);
+    }
+  };
+
+  const handleNextQuiz = () => {
+    setShowPopup(false);
+    navigate('/quiz/2');
   };
 
   return (
@@ -57,6 +166,14 @@ function Quiz1() {
                   className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
                 >送信</button>
               </form>
+
+              <ResultPopup 
+                isOpen={showPopup}
+                onClose={handlePopupClose}
+                isCorrect={isCorrect}
+                message={isCorrect ? correctMessage : errorMessage}
+                onNext={isCorrect ? handleNextQuiz : null}
+              />
             </>
           ) : (
             <div className="space-y-4">
@@ -79,10 +196,12 @@ function Quiz1() {
 function Quiz2() {
   const [answer, setAnswer] = useState('');
   const [solved, setSolved] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
   const navigate = useNavigate();
 
   const errorMessage = '残念！間違えているようだぁ！';
-  const correctMessage = 'congratulation！！正解です。では、この回答を1日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
+  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答を1日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,11 +211,24 @@ function Quiz2() {
     );
     
     if (isCorrect) {
-      alert(correctMessage);
-      setSolved(true);
+      setIsCorrect(true);
+      setShowPopup(true);
     } else {
-      alert(errorMessage);
+      setIsCorrect(false);
+      setShowPopup(true);
     }
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    if (isCorrect) {
+      setSolved(true);
+    }
+  };
+
+  const handleNextQuiz = () => {
+    setShowPopup(false);
+    navigate('/quiz/3');
   };
 
   return (
@@ -112,12 +244,12 @@ function Quiz2() {
           <h2 className="text-black text-2xl font-semibold mb-4">第2問</h2>
           {!solved ? (
             <>
-              <p className="text-black text-lg mb-4">テキストテキストテキストテキストテキストテキスト</p>
-              <div className="bg-gray-100 p-4 rounded-lg mb-4">
-                <div className="w-full h-64 bg-gray-200 rounded flex items-center justify-center">
+              <div className="rounded-lg mb-4">
+                <div className="w-full h-6 rounded flex items-center justify-center">
                   <img src="../../assets/quiz2.png" alt="" />
                 </div>
               </div>
+              
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input
                   type="text"
@@ -131,6 +263,14 @@ function Quiz2() {
                   className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
                 >送信</button>
               </form>
+
+              <ResultPopup 
+                isOpen={showPopup}
+                onClose={handlePopupClose}
+                isCorrect={isCorrect}
+                message={isCorrect ? correctMessage : errorMessage}
+                onNext={isCorrect ? handleNextQuiz : null}
+              />
             </>
           ) : (
             <div className="space-y-4">
@@ -153,9 +293,11 @@ function Quiz2() {
 function Quiz3() {
   const [answer, setAnswer] = useState('');
   const [solved, setSolved] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
   const navigate = useNavigate();
   const errorMessage = '残念！間違えているようだぁ！';
-  const correctMessage = 'congratulation！！正解です。では、この回答を1日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
+  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答を2日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -165,11 +307,24 @@ function Quiz3() {
     );
     
     if (isCorrect) {
-      alert(correctMessage);
-      setSolved(true);
+      setIsCorrect(true);
+      setShowPopup(true);
     } else {
-      alert(errorMessage);
+      setIsCorrect(false);
+      setShowPopup(true);
     }
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    if (isCorrect) {
+      setSolved(true);
+    }
+  };
+
+  const handleNextQuiz = () => {
+    setShowPopup(false);
+    navigate('/quiz/4');
   };
 
   return (
@@ -204,6 +359,14 @@ function Quiz3() {
                   className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
                 >送信</button>
               </form>
+
+              <ResultPopup 
+                isOpen={showPopup}
+                onClose={handlePopupClose}
+                isCorrect={isCorrect}
+                message={isCorrect ? correctMessage : errorMessage}
+                onNext={isCorrect ? handleNextQuiz : null}
+              />
             </>
           ) : (
             <div className="space-y-4">
@@ -226,9 +389,11 @@ function Quiz3() {
 function Quiz4() {
   const [answer, setAnswer] = useState('');
   const [solved, setSolved] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
   const [showPin, setShowPin] = useState(false);
   const errorMessage = '残念！間違えているようだぁ！';
-  const correctMessage = 'congratulation！！正解です。では、この回答を1日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
+  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答を2日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -238,10 +403,19 @@ function Quiz4() {
     );
     
     if (isCorrect) {
-      setSolved(true);
+      setIsCorrect(true);
+      setShowPopup(true);
       setShowPin(true);
     } else {
-      alert(errorMessage);
+      setIsCorrect(false);
+      setShowPopup(true);
+    }
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    if (isCorrect) {
+      setSolved(true);
     }
   };
 
@@ -277,6 +451,13 @@ function Quiz4() {
                   className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
                 >送信</button>
               </form>
+
+              <ResultPopup 
+                isOpen={showPopup}
+                onClose={handlePopupClose}
+                isCorrect={isCorrect}
+                message={isCorrect ? correctMessage : errorMessage}
+              />
             </>
           ) : (
             <div className="space-y-4">
