@@ -140,12 +140,12 @@ function Quiz1() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-2xl mx-auto w-full flex-grow flex flex-col relative p-4"
+        className="max-w-2xl mx-auto w-full flex-grow flex flex-col relative"
       >
         <h1 className="p-8 text-3xl font-bold mb-8 text-black text-center">謎を解き、ロックを解除せよ</h1>
 
         <section className="mb-12 pt-8">
-          <h2 className="text-black text-2xl mb-4">第1問</h2>
+          <h2 className="text-black text-2xl mb-4 px-4">第1問</h2>
           {!solved ? (
             <>
               <div className="rounded-lg mb-4">
@@ -153,7 +153,7 @@ function Quiz1() {
                   <img src="../../assets/quiz1.png" alt="" />
                 </div>
               </div>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4 px-4">
                 <input
                   type="text"
                   value={answer}
@@ -236,21 +236,21 @@ function Quiz2() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-2xl mx-auto w-full flex-grow flex flex-col relative p-4"
+        className="max-w-2xl mx-auto w-full flex-grow flex flex-col relative"
       >
         <h1 className="p-8 text-3xl font-bold mb-8 text-black text-center">謎を解き、ロックを解除せよ</h1>
 
         <section className="mb-12 pt-8">
-          <h2 className="text-black text-2xl mb-4">第2問</h2>
+          <h2 className="text-black text-2xl mb-4 px-4">第2問</h2>
           {!solved ? (
             <>
               <div className="rounded-lg mb-4">
-                <div className="w-full h-6 rounded flex items-center justify-center">
+                <div className="w-full h-64 rounded flex items-center justify-center">
                   <img src="../../assets/quiz2.png" alt="" />
                 </div>
               </div>
               
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4 px-4">
                 <input
                   type="text"
                   value={answer}
@@ -332,12 +332,12 @@ function Quiz3() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-2xl mx-auto w-full flex-grow flex flex-col relative p-4"
+        className="max-w-2xl mx-auto w-full flex-grow flex flex-col relative"
       >
         <h1 className="p-8 text-3xl font-bold mb-8 text-black text-center">謎を解き、ロックを解除せよ</h1>
 
         <section className="mb-12 pt-8">
-          <h2 className="text-black text-2xl mb-4">第3問</h2>
+          <h2 className="text-black text-2xl mb-4 px-4">第3問</h2>
           {!solved ? (
             <>
               <div className="rounded-lg mb-4">
@@ -345,7 +345,7 @@ function Quiz3() {
                   <img src="../../assets/quiz3.png" alt="" />
                 </div>
               </div>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4 px-4">
                 <input
                   type="text"
                   value={answer}
@@ -423,12 +423,14 @@ function Quiz4() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-2xl mx-auto w-full flex-grow flex flex-col relative p-4"
+        className="max-w-2xl mx-auto w-full flex-grow flex flex-col relative"
       >
-        <h1 className="p-8 text-3xl font-bold mb-8 text-black text-center">謎を解き、ロックを解除せよ</h1>
+        <div className="message_container">
+          <h1 className="p-8 text-3xl font-bold mb-8 text-black text-center">謎を解き、ロックを解除せよ</h1>
+        </div>
 
         <section className="mb-12 pt-8">
-          <h2 className="text-black text-2xl mb-4">第4問</h2>
+          <h2 className="text-black text-2xl mb-4 px-4">第4問</h2>
           {!solved ? (
             <>
               <div className="rounded-lg mb-4">
@@ -436,7 +438,7 @@ function Quiz4() {
                   <img src="../../assets/quiz4.png" alt="" />
                 </div>
               </div>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4 px-4">
                 <input
                   type="text"
                   value={answer}
@@ -455,6 +457,7 @@ function Quiz4() {
                 onClose={handlePopupClose}
                 isCorrect={isCorrect}
                 message={isCorrect ? correctMessage : errorMessage}
+                onNext={null}
               />
             </>
           ) : (
