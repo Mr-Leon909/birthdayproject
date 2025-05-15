@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import BirthdayIntro from './BirthdayIntro';
 import TopPage from './components/TopPage';
 import SNSPage from './components/SNSPage';
-import Quiz  from './components/quiz';
+import Quiz from './components/quiz';
 import SecretPage from './components/SecretPage';
 import TravelSchedule from './components/TravelSchedule';
 import logo from '../assets/logo.png';
@@ -69,7 +69,7 @@ function App() {
             <Routes>
               <Route path="/" element={<TopPage />} />
               <Route path="/sns/*" element={<SNSPage />} />
-              <Route path="/quiz" element={<Quiz />} />
+              <Route path="/quiz/*" element={<Quiz />} />
               <Route path="/secret" element={<SecretPage />} />
               <Route path="/schedule" element={<TravelSchedule />} />
             </Routes>
