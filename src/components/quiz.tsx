@@ -240,8 +240,8 @@ function Quiz2() {
       >
         <h1 className="p-8 text-3xl font-bold mb-8 text-black text-center">謎を解き、ロックを解除せよ</h1>
 
-        <section className="mb-12">
-          <h2 className="text-black text-2xl font-semibold mb-4">第2問</h2>
+        <section className="mb-12 pt-8">
+          <h2 className="text-black text-2xl mb-4">第2問</h2>
           {!solved ? (
             <>
               <div className="rounded-lg mb-4">
@@ -336,13 +336,12 @@ function Quiz3() {
       >
         <h1 className="p-8 text-3xl font-bold mb-8 text-black text-center">謎を解き、ロックを解除せよ</h1>
 
-        <section className="mb-12">
-          <h2 className="text-black text-2xl font-semibold mb-4">第3問</h2>
+        <section className="mb-12 pt-8">
+          <h2 className="text-black text-2xl mb-4">第3問</h2>
           {!solved ? (
             <>
-              <p className="text-black text-lg mb-4">テキストテキストテキストテキストテキストテキスト</p>
-              <div className="bg-gray-100 p-4 rounded-lg mb-4">
-                <div className="w-full h-64 bg-gray-200 rounded flex items-center justify-center">
+              <div className="rounded-lg mb-4">
+                <div className="w-full h-64 rounded flex items-center justify-center">
                   <img src="../../assets/quiz3.png" alt="" />
                 </div>
               </div>
@@ -428,13 +427,12 @@ function Quiz4() {
       >
         <h1 className="p-8 text-3xl font-bold mb-8 text-black text-center">謎を解き、ロックを解除せよ</h1>
 
-        <section className="mb-12">
-          <h2 className="text-black text-2xl font-semibold mb-4">第4問</h2>
+        <section className="mb-12 pt-8">
+          <h2 className="text-black text-2xl mb-4">第4問</h2>
           {!solved ? (
             <>
-              <p className="text-black text-lg mb-4">テキストテキストテキストテキストテキストテキスト</p>
-              <div className="bg-gray-100 p-4 rounded-lg mb-4">
-                <div className="text-black w-full h-64 bg-gray-200 rounded flex items-center justify-center">
+              <div className="rounded-lg mb-4">
+                <div className="w-full h-64 rounded flex items-center justify-center">
                   <img src="../../assets/quiz4.png" alt="" />
                 </div>
               </div>
