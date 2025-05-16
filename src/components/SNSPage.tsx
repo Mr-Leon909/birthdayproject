@@ -76,7 +76,6 @@ function LoginPage() {
 }
 
 function TimelinePage() {
-  const { user } = useAuth();
   return (
     <div className="p-4">
       <p className='text-black'>
@@ -113,15 +112,15 @@ function TimelinePage() {
   );
 }
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuth();
+// function ProtectedRoute({ children }: { children: React.ReactNode }) {
+//   const { isAuthenticated } = useAuth();
   
-  if (!isAuthenticated) {
-    return <Navigate to="/sns/login" replace />;
-  }
+//   if (!isAuthenticated) {
+//     return <Navigate to="/sns/login" replace />;
+//   }
 
-  return <>{children}</>;
-}
+//   return <>{children}</>;
+// }
 
 export default function SNSPage() {
   return (
@@ -130,9 +129,9 @@ export default function SNSPage() {
       <Route
         path="top"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <TimelinePage />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route path="*" element={<Navigate to="/sns/login" replace />} />
