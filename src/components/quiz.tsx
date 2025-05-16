@@ -489,13 +489,17 @@ function Quiz4() {
                 frameBorder="0"
               ></iframe>
               <p className="text-black">全問正解おめでとうございます！ < br />
-                暗証番号を入力して、シークレットメッセージを開きましょう！
+                次の画面で暗証番号を入力して、シークレットメッセージをダウンロードしよう！
               </p>
 
               {showPin && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-8">
                   <div className="mt-6">
-                    <Link to="/secret" className='text-black underline'>シークレットページへ</Link>
+                    <Link to="/secret">
+                      <button className="bg-[#0493a6] text-white py-3 px-6 rounded transition-colors hover:bg-[#037a8a]">
+                        次へ
+                      </button>
+                    </Link>
                   </div>
                 </motion.div>
               )}
