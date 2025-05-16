@@ -150,7 +150,7 @@ function Quiz1() {
             <>
               <div className="rounded-lg mb-4">
                 <div className="w-full h-64 rounded flex items-center justify-center">
-                  <img src="../../assets/quiz1.png" alt="" />
+                  <img src="/src/assets/quiz1.png" alt="" />
                 </div>
               </div>
               <form onSubmit={handleSubmit} className="space-y-4 px-4">
@@ -246,7 +246,7 @@ function Quiz2() {
             <>
               <div className="rounded-lg mb-4">
                 <div className="w-full h-64 rounded flex items-center justify-center">
-                  <img src="../../assets/quiz2.png" alt="" />
+                  <img src="/src/assets/quiz2.png" alt="" />
                 </div>
               </div>
               
@@ -342,7 +342,7 @@ function Quiz3() {
             <>
               <div className="rounded-lg mb-4">
                 <div className="w-full h-64 rounded flex items-center justify-center">
-                  <img src="../../assets/quiz3.png" alt="" />
+                  <img src="/src/assets/quiz3.png" alt="" />
                 </div>
               </div>
               <form onSubmit={handleSubmit} className="space-y-4 px-4">
@@ -419,8 +419,8 @@ function Quiz4() {
   };
 
   const handleDownloadImage = () => {
-    // public フォルダを基準としたパスを使用
-    const imageUrl = '/assets/SecretMessage.png'; 
+    // src/assets フォルダを基準としたパスを使用
+    const imageUrl = '/src/assets/SecretMessage.png'; 
     const link = document.createElement('a');
     link.href = imageUrl;
     link.download = 'SecretMessage.png';
@@ -446,7 +446,7 @@ function Quiz4() {
               <div className="rounded-lg mb-4">
               <h2 className="text-black text-2xl mb-4 px-4">第4問</h2>
                 <div className="w-full h-64 rounded flex items-center justify-center">
-                  <img src="../../assets/quiz4.png" alt="" />
+                  <img src="/src/assets/quiz4.png" alt="" />
                 </div>
                 
                 <div className="text-black px-6 py-4">

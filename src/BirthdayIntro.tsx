@@ -32,7 +32,7 @@ export default function BirthdayIntro({ onFinish }: Props) {
     >
       <div className="relative w-full h-full max-w-4xl">
         <img 
-          src="/assets/opening.png" 
+          src="/src/assets/opening.png" 
           alt="Birthday" 
           className="w-full h-full object-contain"
         />
