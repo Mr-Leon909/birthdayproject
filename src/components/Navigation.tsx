@@ -15,7 +15,7 @@ export default function Navigation() {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 right-4 z-50 p-2 bg-gray-300/80 backdrop-blur-sm rounded-full shadow-lg"
+        className="fixed top-4 right-4 z-50 p-2 bg-gray-300/80 backdrop-blur-sm shadow-lg"
       >
         <div className="w-6 h-6 relative">
           <span className={`absolute w-full h-0.5 bg-black transition-all ${isOpen ? 'rotate-45 top-3' : 'top-1'}`}></span>
@@ -24,7 +24,7 @@ export default function Navigation() {
         </div>
       </button>
 
-      <div 
+      <div
         className={`fixed inset-0 bg-gray-200/95 backdrop-blur-md z-40 transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
         style={{
           opacity: isOpen ? '1' : '0',

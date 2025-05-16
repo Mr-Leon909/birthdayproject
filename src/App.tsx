@@ -37,7 +37,7 @@ function App() {
             <img src={logo} alt="Logo" className="top-6 left-7 w-10 h-10" />
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="fixed top-4 right-4 z-50 p-2 bg-transparent backdrop-blur-sm rounded-full shadow-lg"
+              className="fixed top-4 right-4 z-50 p-2"
             >
               <div className="w-6 h-6 relative">
                 <span className={`absolute w-full h-0.5 bg-black transition-all ${menuOpen ? 'rotate-45 top-3' : 'top-1'}`}></span>
