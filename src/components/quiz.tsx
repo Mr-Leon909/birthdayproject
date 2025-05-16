@@ -19,9 +19,9 @@ function ResultPopup({ isOpen, onClose, isCorrect, message, onNext }) {
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className={`relative bg-white rounded-lg p-8 max-w-md mx-auto shadow-xl ${isCorrect ? 'border-4 border-green-500' : 'border-4 border-red-500'}`}
+            className={`relative bg-white rounded-lg p-8 max-w-md mx-auto shadow-xl ${isCorrect ? 'border-4 border-[#0493a6]' : 'border-4 border-red-500'}`}
           >
-            <h3 className={`text-2xl font-bold mb-4 ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
+            <h3 className={`text-2xl font-bold mb-4 ${isCorrect ? 'text-[#0493a6]' : 'text-red-600'}`}>
               {isCorrect ? '正解！' : '残念！'}
             </h3>
             <div className="mb-6 whitespace-pre-wrap text-black">
@@ -30,14 +30,14 @@ function ResultPopup({ isOpen, onClose, isCorrect, message, onNext }) {
             <div className="flex justify-end space-x-3">
               <button 
                 onClick={onClose}
-                className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition-colors"
+                className="px-4 py-2 bg-gray-300 text-gray-800 rounded transition-colors"
               >
                 閉じる
               </button>
               {isCorrect && onNext && (
                 <button 
                   onClick={onNext}
-                  className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                  className="px-4 py-2 bg-[#0493a6] text-white rounded transition-colors"
                 >
                   次へ進む
                 </button>
@@ -177,10 +177,10 @@ function Quiz1() {
             </>
           ) : (
             <div className="space-y-4">
-              <p className="text-green-600">正解！次の問題へ進んでください。</p>
+              <p className="text-[#0493a6]">正解！次の問題へ進んでください。</p>
               <button
                 onClick={() => navigate("/quiz/2")}
-                className="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700 transition-colors"
+                className="w-full bg-[#0493a6] text-white py-3 roundedtransition-colors"
               >
                 次の問題へ
               </button>
@@ -273,11 +273,11 @@ function Quiz2() {
               />
             </>
           ) : (
-            <div className="space-y-4">
-              <p className="text-green-600">正解！次の問題へ進んでください。</p>
+            <div className="space-y-4 px-4">
+              <p className="text-[#0493a6]">正解！次の問題へ進んでください。</p>
               <button
                 onClick={() => navigate("/quiz/3")}
-                className="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700 transition-colors"
+                className="w-full bg-[#0493a6] text-white py-3 rounded transition-colors"
               >
                 次の問題へ
               </button>
@@ -368,11 +368,11 @@ function Quiz3() {
               />
             </>
           ) : (
-            <div className="space-y-4">
-              <p className="text-green-600">正解！次の問題へ進んでください。</p>
+            <div className="space-y-4 px-4">
+              <p className="text-[#0493a6]">正解！次の問題へ進んでください。</p>
               <button
                 onClick={() => navigate("/quiz/4")}
-                className="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700 transition-colors"
+                className="w-full bg-[#0493a6] text-white py-3 rounded transition-colors"
               >
                 次の問題へ
               </button>
@@ -430,10 +430,10 @@ function Quiz4() {
         </div>
 
         <section className="mb-12 pt-8">
-          <h2 className="text-black text-2xl mb-4 px-4">第4問</h2>
           {!solved ? (
             <>
               <div className="rounded-lg mb-4">
+              <h2 className="text-black text-2xl mb-4 px-4">第4問</h2>
                 <div className="w-full h-64 rounded flex items-center justify-center">
                   <img src="../../assets/quiz4.png" alt="" />
                 </div>
@@ -462,14 +462,13 @@ function Quiz4() {
             </>
           ) : (
             <div className="space-y-4">
-              <p className="text-green-600">正解！全問正解おめでとうございます。</p>
+              <p className="text-[#0493a6]">全問正解おめでとうございます！</p>
               {showPin && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-8">
-                  <p className="text-2xl font-bold text-black">暗証番号: 1234</p>
                   <div className="mt-6">
                     <a 
                       href="/secret"
-                      className="inline-block bg-green-600 text-white py-3 px-6 rounded hover:bg-green-700 transition-colors"
+                      className="inline-block bg-[#0493a6] text-white py-3 px-6 rounded transition-colors"
                     >
                       シークレットページへ
                     </a>
