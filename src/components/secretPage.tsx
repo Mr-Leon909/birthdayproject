@@ -9,14 +9,14 @@ export default function SecretPage() { // Changed function name to follow conven
 
   const handleDownloadImage = () => {
     const imageUrls = [
-      '/src/assets/quiz1.png',
-      '/src/assets/quiz2.png',
-      '/src/assets/quiz3.png',
-      '/src/assets/quiz4.png',
-      '/src/assets/quiz1.png',
-      '/src/assets/quiz2.png',
-      '/src/assets/quiz3.png',
-      '/src/assets/quiz4.png',
+      '/src/assets/1_0.png',
+      '/src/assets/2_0.png',
+      '/src/assets/3_0.png',
+      '/src/assets/4_0.png',
+      '/src/assets/5_0.png',
+      '/src/assets/6_0.png',
+      '/src/assets/7_0.png',
+      '/src/assets/8_0.png',
     ];
   
     imageUrls.forEach((url, index) => {
