@@ -25,7 +25,7 @@ export default function SecretPage() {
       >
         {!isUnlocked ? (
           <div className="bg-white p-8 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold mb-6 text-center">
+            <h2 className="text-1xl font-bold mb-6 text-center text-black">
               🔐 シークレットページ
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -33,7 +33,7 @@ export default function SecretPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="パスワードを入力"
+                placeholder="番号を入力"
                 className="w-full p-3 border border-gray-300 rounded"
               />
               {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -46,8 +46,8 @@ export default function SecretPage() {
             </form>
           </div>
         ) : (
-          <div className="prose max-w-none">
-            <h1>シークレットメッセージ</h1>
+          <div className="text-black prose max-w-none">
+            <h1>シークレットメッセージが開放</h1>
             <p>
               ここにメッセージが表示されます...
             </p>
