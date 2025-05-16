@@ -7,32 +7,6 @@ export default function SecretPage() { // Changed function name to follow conven
   const [error, setError] = useState('');
   const correctPassword = '1206';
 
-  const handleDownloadImage = () => {
-    const imageUrls = [
-      '../../public/1_0.png',
-      '../../public/2_0.png',
-      '../../public/3_0.png',
-      '../../public/4_0.png',
-      '../../public/5_0.png',
-      '../../public/6_0.png',
-      '../../public/7_0.png',
-      '../../public/8_0.png',
-    ];
-  
-    imageUrls.forEach((url, index) => {
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `love_message_${index + 1}.png`;
-      document.body.appendChild(link);
-  
-      // 遅延を入れて順番通りにクリック
-      setTimeout(() => {
-        link.click();
-        document.body.removeChild(link);
-      }, index * 400);
-    });
-  };
-
   // Function to handle password submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,16 +66,15 @@ export default function SecretPage() { // Changed function name to follow conven
             <p className="text-gray-600 mb-6">
               メッセージをダウンロードしてね！
             </p>
-            <button
-              type="button"
-              onClick={handleDownloadImage} 
+            <a
+              href="https://drive.google.com/drive/folders/133A2tAwE8kBc6Gpj4uWNDV5diXI84GtW?usp=sharing"
               className="inline-flex items-center bg-[#0493a6] text-white py-3 px-6 rounded transition-colors hover:bg-[#037a8a]" // Added hover effect
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
               メッセージをダウンロード
-            </button>
+            </a>
           </motion.div>
         )}
       </motion.div>
