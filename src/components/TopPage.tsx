@@ -1,9 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ImageWithBackground from './ImageWithBackground';
+import GalleryImage from './gallery/GalleryImage';
 
 export default function TopPage() {
   const navigate = useNavigate();
+  // スライドショー用の状態管理
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // FV画像のパス配列
+  const fvImages = [
+    "/assets/fv1.png",
+    "/assets/fv2.png",
+    "/assets/fv3.png",
+    "/assets/fv4.png",
+    "/assets/fv5.png",
+    "/assets/fv6.png",
+    "/assets/fv7.png"
+  ];
   
   const images = [
     {
@@ -31,12 +45,25 @@ export default function TopPage() {
 
   // ギャラリー用の画像URLリスト
   const galleryImages = [
-    "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=2000&q=80",
-    "https://images.unsplash.com/photo-1581022295087-35e593704911?auto=format&fit=crop&w=2000&q=80",
-    "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2000&q=80",
-    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=2000&q=80",
-    "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2000&q=80"
+    "/assets/fv1.png",
+    "/assets/fv2.png",
+    "/assets/fv3.png",
+    "/assets/fv4.png",
+    "/assets/fv5.png",
+    "/assets/fv6.png",
+    "/assets/fv7.png"
   ];
+
+  // 画像のスライドショー効果
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex(prevIndex => 
+        prevIndex === fvImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // 5秒ごとに画像を切り替え
+    
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const items = document.querySelectorAll<HTMLDivElement>('.gallery_item');
@@ -56,38 +83,41 @@ export default function TopPage() {
     <div className="min-h-screen bg-white text-black">
       <div>
         <div style={{ height: '1px', backgroundColor: '#7b7b7b', margin: '16px 0' }} />
-        <img src="../../assets/top.png" alt="" />
         
         <div className="min-h-screen bg-white text-black">
-      <div>
-        <div style={{ height: "1px", backgroundColor: "#7b7b7b", margin: "16px 0" }} />
+          <div>
+            <div style={{ height: "1px", backgroundColor: "#7b7b7b", margin: "16px 0" }} />
 
-        {/* トップ画像 */}
-        <div className="mb-8">
-          <img src="/assets/top.png" alt="トップ画像" className="w-full" />
+            {/* トップ画像 */}
+            <div className="mb-8">
+              <img src="/assets/top.png" alt="トップ画像" className="w-full" />
+            </div>
+
+            {/* 横幅いっぱいの背景付き画像（スライドショー） */}
+            <div className="relative w-full md:px-12 lg:px-16">
+              {/* スライドショーコンテナ */}
+              <div className="slideshow-container max-w-[1200px] mx-auto my-12">
+                {fvImages.map((image, index) => (
+                  <div 
+                    key={index}
+                    className={`slideshow-slide ${index === currentImageIndex ? 'active' : ''}`}
+                  >
+                    <ImageWithBackground
+                      src={image}
+                      alt={`スライドショー画像 ${index + 1}`}
+                      backgroundOffset={{ x: 150, y: 20 }}
+                      backgroundColor="#0493a6"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* 横幅いっぱいの背景付き画像 */}
-        <div className="relative w-full">
-          {/* 背景色のオフセット用ボックス */}
-          <div
-            className="absolute rounded-sm bg-[#0493a6]"
-            style={{ top: '20px', left: '20px', width: '95%', height: '100%' }}
-          />
-
-          {/* 画像本体 */}
-          <img
-            src="/assets/image.webp"
-            alt="背景付き画像"
-            className="relative w-[95%] block"
-          />
-        </div>
-      </div>
-    </div>
-
-      <div className="bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 animate-fade-in-delay">
-        <div className="w-[1px] h-16 bg-black/50 mb-4 animate-scroll-down" />
-        <p className="text-sm tracking-[0.2em] text-black/70">SCROLL</p>
+        <div className="bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 animate-fade-in-delay">
+          <div className="w-[1px] h-16 bg-black/50 mb-4 animate-scroll-down" />
+          <p className="text-sm tracking-[0.2em] text-black/70">SCROLL</p>
         </div>
       </div>
 
@@ -102,8 +132,12 @@ export default function TopPage() {
             GALLERY
           </h2>
           {galleryImages.map((src, index) => (
-            <div key={index} className='gallery_item flex mb-10'>
-              <img src={src} alt="" className={`w-full animate-fade-in-scroll index-${index}`} />
+            <div key={index} className='gallery_item flex'>
+              <GalleryImage 
+                src={src} 
+                index={index} 
+                backgroundColor="#0493a6"
+              />
             </div>
           ))}
         </div>
@@ -174,6 +208,27 @@ export default function TopPage() {
 
         .visible .animate-fade-in-scroll {
           animation-play-state: running;
+        }
+
+        /* スライドショー用のスタイル */
+        .slideshow-container {
+          position: relative;
+          width: 100%;
+          overflow: hidden;
+        }
+
+        .slideshow-slide {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          opacity: 0;
+          transition: opacity 2s ease-in-out;
+        }
+
+        .slideshow-slide.active {
+          opacity: 1;
+          position: relative;
         }
       `}</style>
     </div>

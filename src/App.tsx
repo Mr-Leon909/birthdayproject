@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BirthdayIntro from './BirthdayIntro';
 import TopPage from './components/TopPage';
 import SNSPage from './components/SNSPage';
 import Quiz from './components/quiz';
-import SecretPage from './components/SecretPage';
-import TravelSchedule from './components/TravelSchedule';
 import Navigation from './components/Navigation';
 
 function App() {
@@ -25,15 +23,13 @@ function App() {
         {currentPage === 'intro' ? (
           <BirthdayIntro onFinish={handleBirthdayIntroFinish} />
         ) : (
-            <div className="inset-0 z-10">
-            <img src="../assets/logo.png" alt="Logo" className="top-6 left-7 w-10 h-10" />
+            <div className="z-10">
+            <img src="../assets/logo.png" alt="Logo" className="mt-3 left-7 w-12 h-13" />
             <Navigation/>
             <Routes>
               <Route path="/" element={<TopPage />} />
               <Route path="/sns/*" element={<SNSPage />} />
               <Route path="/quiz/*" element={<Quiz />} />
-              <Route path="/secret" element={<SecretPage />} />
-              <Route path="/schedule" element={<TravelSchedule />} />
             </Routes>
           </div>
         )}

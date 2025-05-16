@@ -418,6 +418,17 @@ function Quiz4() {
     }
   };
 
+  const handleDownloadImage = () => {
+    // public フォルダを基準としたパスを使用
+    const imageUrl = '/assets/SecretMessage.png'; 
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = 'SecretMessage.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <motion.div
@@ -426,7 +437,7 @@ function Quiz4() {
         className="max-w-2xl mx-auto w-full flex-grow flex flex-col relative"
       >
         <div className="message_container">
-          <h1 className="p-8 text-3xl font-bold mb-8 text-black text-center">謎を解き、ロックを解除せよ</h1>
+          <h1 className="p-8 text-2xl font-bold mb-8 text-black text-center">謎を解き、<br />ロックを解除せよ</h1>
         </div>
 
         <section className="mb-12 pt-8">
@@ -436,6 +447,24 @@ function Quiz4() {
               <h2 className="text-black text-2xl mb-4 px-4">第4問</h2>
                 <div className="w-full h-64 rounded flex items-center justify-center">
                   <img src="../../assets/quiz4.png" alt="" />
+                </div>
+                
+                <div className="text-black px-6 py-4">
+                  <p className="whitespace-normal break-words">①手のひらに落花。</p>
+                  
+                  <br />
+                  
+                  <p className="whitespace-normal break-words">②日々の幸せの蓄積により生まれる温かな巻物<br />
+                  ピンクとオレンジのベールを纏った巻物は、私たちらしい初めての揃いもの。</p>
+                  
+                  <br />
+                  
+                  <p className="whitespace-normal break-words">③初めて連れてきてくれた行きつけの場所<br />
+                  布団に包まれた2人の赤ちゃん。</p>
+                  
+                  <br />
+                  
+                  <p className="whitespace-normal break-words">④最後のメッセージが始まりの合図。その時男がかけていたものは。</p>
                 </div>
               </div>
               <form onSubmit={handleSubmit} className="space-y-4 px-4">
@@ -461,17 +490,20 @@ function Quiz4() {
               />
             </>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-4 px-4">
               <p className="text-[#0493a6]">全問正解おめでとうございます！</p>
               {showPin && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-8">
                   <div className="mt-6">
-                    <a 
-                      href="/secret"
-                      className="inline-block bg-[#0493a6] text-white py-3 px-6 rounded transition-colors"
+                    <button
+                      onClick={handleDownloadImage}
+                      className="inline-flex items-center bg-[#0493a6] text-white py-3 px-6 rounded transition-colors"
                     >
-                      シークレットページへ
-                    </a>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                      メッセージをダウンロード
+                    </button>
                   </div>
                 </motion.div>
               )}
