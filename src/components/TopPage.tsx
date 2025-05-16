@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ImageWithBackground from './ImageWithBackground';
 import GalleryImage from './gallery/GalleryImage';
-import fv1 from '../assets/fv1.png';
-import fv2 from '../assets/fv2.png';
-import fv3 from '../assets/fv3.png';
-import fv4 from '../assets/fv4.png';
-import fv5 from '../assets/fv5.png';
-import fv6 from '../assets/fv6.png';
-import fv7 from '../assets/fv7.png';
+import fv1 from '../assets/16.png';
+import fv2 from '../assets/17.png';
+import fv3 from '../assets/18.png';
+import fv4 from '../assets/19.png';
+import fv5 from '../assets/20.png';
+import fv6 from '../assets/21.png';
+import fv7 from '../assets/22.png';
+import fv8 from '../assets/23.png';
+import fv9 from '../assets/24.png';
+import fv10 from '../assets/25.png';
 import topImage from '../assets/top.png';
 import tsutsuji from '../assets/tsutsuji.png';
 import quizImg from '../assets/quiz.png';
@@ -29,6 +32,9 @@ export default function TopPage() {
     fv5,
     fv6,
     fv7,
+    fv8,
+    fv9,
+    fv10,
   ];
   
   const images = [
@@ -42,7 +48,7 @@ export default function TopPage() {
     {
       url: quizImg,
       title: "謎解きページ",
-      description: "2つの謎解き問題に挑戦してみましょう。全ての謎を解くと、秘密のページと南京錠のアクセス方法がわかります。",
+      description: "4つの謎解き問題に挑戦してみましょう。全ての謎を解くと、秘密のページと南京錠のアクセス方法がわかります。",
       link: "/quiz",
       linkText: "謎解きに挑戦"
     },

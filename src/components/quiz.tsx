@@ -106,7 +106,7 @@ function Quiz1() {
   const navigate = useNavigate();
 
   const errorMessage = '残念！間違えているようだぁ！';
-  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答を1日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
+  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答を沖縄かりゆしリゾートのフロントスタッフに伝え、暗証番号を受け取ってください。';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -202,7 +202,7 @@ function Quiz2() {
   const navigate = useNavigate();
 
   const errorMessage = '残念！間違えているようだぁ！';
-  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答を1日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
+  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答をカドウカ　ビジャヤさんに伝え、暗証番号を受け取ってください。';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -298,7 +298,7 @@ function Quiz3() {
   const [isCorrect, setIsCorrect] = useState(false);
   const navigate = useNavigate();
   const errorMessage = '残念！間違えているようだぁ！';
-  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答を2日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
+  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答をthe rescapeのフロントスタッフに伝え暗証番号を受け取ってください。';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -393,7 +393,7 @@ function Quiz4() {
   const [isCorrect, setIsCorrect] = useState(false);
   const [showPin, setShowPin] = useState(false);
   const errorMessage = '残念！間違えているようだぁ！';
-  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答を2日目のホテルのフロントスタッフに伝え、暗証番号を受け取ってください。';
+  const correctMessage = 'congratulation！！\n正解です。\nでは、この回答を響に伝え、暗証番号を受け取ってください。';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
