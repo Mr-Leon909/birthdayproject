@@ -45,11 +45,13 @@ export default function TopPage() {
 
   // ギャラリー用の画像URLリスト
   const galleryImages = [
-    "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=2000&q=80",
-    "https://images.unsplash.com/photo-1581022295087-35e593704911?auto=format&fit=crop&w=2000&q=80",
-    "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2000&q=80",
-    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=2000&q=80",
-    "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2000&q=80"
+    "/assets/fv1.png",
+    "/assets/fv2.png",
+    "/assets/fv3.png",
+    "/assets/fv4.png",
+    "/assets/fv5.png",
+    "/assets/fv6.png",
+    "/assets/fv7.png"
   ];
 
   // 画像のスライドショー効果

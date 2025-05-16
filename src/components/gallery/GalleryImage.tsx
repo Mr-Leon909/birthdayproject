@@ -72,18 +72,19 @@ export default function GalleryImage({
       }}
     >
       {/* 画像と背景をラップする要素 */}
-      <div className="relative" style={{ width: '65%' }}>
-        {/* 背景要素 - フェードインするだけ */}
+      <div className="relative" style={{ width: '75%', maxWidth: '900px' }}>
+        {/* 背景要素 - フェードインするだけ - 添付画像のように配置調整 */}
         <div
           ref={bgRef}
           className="absolute rounded-sm transition-opacity duration-1000 opacity-0"
           style={{
             backgroundColor: backgroundColor,
-            width: '100%',
-            height: '110%',
-            top: '-5%',
-            left: '0',
-            zIndex: 0
+            width: '70%',
+            height: '70%',
+            top: '40%',  // 画像より下にずらす
+            left: isOdd ? '40%' : 'auto',  // 奇数の場合は右にずらす
+            right: isOdd ? 'auto' : '40%',  // 偶数の場合は左にずらす
+            zIndex: 1,  // 画像の後ろに配置
           }}
         />
 
