@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+
   const menuItems = [
     { id: 'top', label: 'TOP', link: "/" },
     { id: 'sns', label: 'TSUTSUJI', link: "/sns" },
-    { id: 'schedule', label: '沖縄旅行表' },
     { id: 'puzzle', label: '謎解き', link: "/quiz"},
     { id: 'secret', label: 'メッセージページ', link: "/secret" },
   ];
@@ -15,7 +15,7 @@ export default function Navigation() {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 right-4 z-50 p-2 bg-gray-300/80 backdrop-blur-sm shadow-lg"
+        className="fixed top-4 right-4 z-50 p-2"
       >
         <div className="w-6 h-6 relative">
           <span className={`absolute w-full h-0.5 bg-black transition-all ${isOpen ? 'rotate-45 top-3' : 'top-1'}`}></span>
@@ -25,7 +25,7 @@ export default function Navigation() {
       </button>
 
       <div
-        className={`fixed inset-0 bg-gray-200/95 backdrop-blur-md z-40 transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed inset-0 bg-gray-400/20 backdrop-blur-md z-40 transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
         style={{
           opacity: isOpen ? '1' : '0',
           visibility: isOpen ? 'visible' : 'hidden',
@@ -35,12 +35,12 @@ export default function Navigation() {
         <nav className="h-full flex items-center justify-center">
           <div className="text-center">
             {menuItems.map((item) => (
-              <a
+              <Link
                 key={item.id}
                 onClick={() => {
                   setIsOpen(false);
                 }}
-                className="block py-4 px-8 text-2xl text-black hover:text-[#B8860B] transition-colors"
+                className="block py-4 px-8 text-2xl text-black transition-colors"
                 style={{
                   fontFamily: 'Noto Serif JP, serif',
                   opacity: isOpen ? '1' : '0',
@@ -48,10 +48,10 @@ export default function Navigation() {
                   transition: 'opacity 0.3s ease, transform 0.3s ease',
                   transitionDelay: `${menuItems.indexOf(item) * 0.1}s`
                 }}
-                href={item.link ? item.link : undefined}
+                to={item.link}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
         </nav>
