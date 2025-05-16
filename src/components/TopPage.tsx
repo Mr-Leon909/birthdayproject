@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ImageWithBackground from './ImageWithBackground';
+import GalleryImage from './gallery/GalleryImage';
 
 export default function TopPage() {
   const navigate = useNavigate();
@@ -129,8 +130,12 @@ export default function TopPage() {
             GALLERY
           </h2>
           {galleryImages.map((src, index) => (
-            <div key={index} className='gallery_item flex mb-10'>
-              <img src={src} alt="" className={`w-full animate-fade-in-scroll index-${index}`} />
+            <div key={index} className='gallery_item flex'>
+              <GalleryImage 
+                src={src} 
+                index={index} 
+                backgroundColor="#0493a6"
+              />
             </div>
           ))}
         </div>
