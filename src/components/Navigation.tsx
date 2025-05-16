@@ -8,7 +8,6 @@ export default function Navigation() {
     { id: 'top', label: 'TOP', link: "/" },
     { id: 'sns', label: 'TSUTSUJI', link: "/sns" },
     { id: 'puzzle', label: '謎解き', link: "/quiz"},
-    { id: 'secret', label: 'メッセージページ', link: "/secret" },
   ];
 
   return (
