@@ -1,6 +1,10 @@
 import { Routes, Route, Navigate, useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import quiz1 from '../assets/quiz1.png';
+import quiz2 from '../assets/quiz2.png';
+import quiz3 from '../assets/quiz3.png';
+import quiz4 from '../assets/quiz4.png';
 
 
 // カスタムポップアップコンポーネント
@@ -151,7 +155,7 @@ function Quiz1() {
             <>
               <div className="rounded-lg mb-4">
                 <div className="w-full h-64 rounded flex items-center justify-center">
-                  <img src="/src/assets/quiz1.png" alt="" />
+                  <img src={quiz1} alt="" />
                 </div>
               </div>
               <form onSubmit={handleSubmit} className="space-y-4 px-4">
