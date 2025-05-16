@@ -102,7 +102,7 @@ export default function TopPage() {
                     <ImageWithBackground
                       src={image}
                       alt={`スライドショー画像 ${index + 1}`}
-                      backgroundOffset={{ x: 120, y: 20 }}
+                      backgroundOffset={{ x: 150, y: 20 }}
                       backgroundColor="#0493a6"
                     />
                   </div>

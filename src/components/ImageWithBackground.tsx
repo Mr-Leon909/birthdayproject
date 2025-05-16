@@ -23,7 +23,7 @@ export default function ImageWithBackground({
         style={{
           backgroundColor: backgroundColor,
           width: width ? `${width * 0.9}px` : '95%',
-          height: height ? `${height * 1.1}px` : '150%', // 高さを110%にして下にはみ出すように
+          height: height ? `${height * 1.1}px` : '110%', // 高さを110%にして下にはみ出すように
           top: 0, // 上辺を画像と揃える
           left: `${backgroundOffset.x}px`,
           zIndex: 0
