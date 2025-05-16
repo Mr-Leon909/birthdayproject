@@ -488,7 +488,7 @@ function Quiz4() {
                 className="w-full aspect-video rounded"
                 frameBorder="0"
               ></iframe>
-              <p className="text-black">全問正解おめでとうございます！ < br />
+              <p className="text-black"> 
                 次の画面で暗証番号を入力して、シークレットメッセージをダウンロードしよう！
               </p>
 
