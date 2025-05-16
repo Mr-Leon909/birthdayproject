@@ -9,6 +9,11 @@ import fv4 from '../assets/fv4.png';
 import fv5 from '../assets/fv5.png';
 import fv6 from '../assets/fv6.png';
 import fv7 from '../assets/fv7.png';
+import topImage from '../assets/top.png';
+import tsutsuji from '../assets/tsutsuji.png';
+import quizImg from '../assets/quiz.png';
+import SecretMessageImg from '../assets/SecretMessage.png';
+import thankYouAnniversary from '../assets/thankYouAnniversary.png';
 
 export default function TopPage() {
   const navigate = useNavigate();
@@ -28,21 +33,21 @@ export default function TopPage() {
   
   const images = [
     {
-      url: "/src/assets/tsutsuji.png",
+      url: tsutsuji,
       title: "TSUTSUJI",
       description: "世界に1つしかない2人だけのSNS「TSUTSUJI」ここでは、二人の思い出を写真や動画と一緒に投稿できます。大切な瞬間をTSUTSUJIに残そう。",
       link: "/sns",
       linkText: "TSUTSUJIへログイン"
     },
     {
-      url: "/src/assets/quiz.png",
+      url: quizImg,
       title: "謎解きページ",
       description: "2つの謎解き問題に挑戦してみましょう。全ての謎を解くと、秘密のページと南京錠のアクセス方法がわかります。",
       link: "/quiz",
       linkText: "謎解きに挑戦"
     },
     {
-      url: "/src/assets/SecretMessage.png",
+      url: SecretMessageImg,
       title: "Secret of message",
       description: "明日香への特別なメッセージです。謎解きを完了すると、このページにアクセスできるようになります。",
       link: "/secret",
@@ -97,7 +102,7 @@ export default function TopPage() {
 
             {/* トップ画像 */}
             <div className="mb-8">
-              <img src="/src/assets/top.png" alt="トップ画像" className="w-full" />
+              <img src={topImage} alt="トップ画像" className="w-full" />
             </div>
 
             {/* 横幅いっぱいの背景付き画像（スライドショー） */}
@@ -129,7 +134,7 @@ export default function TopPage() {
       </div>
 
       <div className="thankYou">
-        <img src="../assets/thankYouAnniversary.png" alt="" className='animate-fade-in-delay'/>
+        <img src={thankYouAnniversary} alt="" className='animate-fade-in-delay'/>
       </div>
 
       <div className="py-16 bg-white">
