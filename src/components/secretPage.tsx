@@ -9,14 +9,14 @@ export default function SecretPage() { // Changed function name to follow conven
 
   const handleDownloadImage = () => {
     const imageUrls = [
-      '/src/assets/1_0.png',
-      '/src/assets/2_0.png',
-      '/src/assets/3_0.png',
-      '/src/assets/4_0.png',
-      '/src/assets/5_0.png',
-      '/src/assets/6_0.png',
-      '/src/assets/7_0.png',
-      '/src/assets/8_0.png',
+      '../assets/1_0.png',
+      '../assets/2_0.png',
+      '../assets/3_0.png',
+      '../assets/4_0.png',
+      '../assets/5_0.png',
+      '../assets/6_0.png',
+      '../assets/7_0.png',
+      '../assets/8_0.png',
     ];
   
     imageUrls.forEach((url, index) => {
@@ -56,7 +56,7 @@ export default function SecretPage() { // Changed function name to follow conven
         {!unlocked ? (
           // Content shown when not unlocked (password form)
           <>
-            <p className="text-black">全問正解おめでとうございます！ <br />
+            <p className="text-black">
                 暗証番号を入力して、シークレットメッセージをダウンロードしよう！
             </p>
             <h2 className="text-2xl font-bold text-gray-800 mb-4">

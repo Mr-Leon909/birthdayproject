@@ -6,7 +6,6 @@ import quiz2 from '../assets/quiz2.png';
 import quiz3 from '../assets/quiz3.png';
 import quiz4 from '../assets/quiz4.png';
 
-
 // カスタムポップアップコンポーネント
 function ResultPopup({ isOpen, onClose, isCorrect, message, onNext }) {
   return (

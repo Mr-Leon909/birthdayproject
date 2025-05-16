@@ -150,7 +150,7 @@ export default function TopPage() {
         <img src={thankYouAnniversary} alt="" className='animate-fade-in-delay'/>
       </div>
 
-      <div className="py-16 bg-white">
+      <div className="py-16 bg-white overflow-hidden">
         <div className="gallery_container max-w-6xl mx-auto">
           <h2 className="text-4xl font-light text-center mb-16 tracking-widest"
               style={{ fontFamily: 'Cormorant Garamond' }}>
