@@ -438,6 +438,9 @@ function Quiz4() {
             <>
               <div className="rounded-lg mb-4">
               <h2 className="text-black text-2xl mb-4 px-4">第4問</h2>
+                <p className="text-black text-center">思い出を使い、空欄を全て埋め、<br />
+                縦の言葉を出現させよ。
+                </p>
                 <div className="w-full h-64 rounded flex items-center justify-center">
                   <img src={quiz4} alt="" />
                 </div>

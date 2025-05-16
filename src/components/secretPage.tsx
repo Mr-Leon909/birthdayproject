@@ -9,27 +9,27 @@ export default function SecretPage() { // Changed function name to follow conven
 
   const handleDownloadImage = () => {
     const imageUrls = [
-      '../assets/1_0.png',
-      '../assets/2_0.png',
-      '../assets/3_0.png',
-      '../assets/4_0.png',
-      '../assets/5_0.png',
-      '../assets/6_0.png',
-      '../assets/7_0.png',
-      '../assets/8_0.png',
+      '../../public/1_0.png',
+      '../../public/2_0.png',
+      '../../public/3_0.png',
+      '../../public/4_0.png',
+      '../../public/5_0.png',
+      '../../public/6_0.png',
+      '../../public/7_0.png',
+      '../../public/8_0.png',
     ];
   
     imageUrls.forEach((url, index) => {
       const link = document.createElement('a');
       link.href = url;
-      link.download = `love_love_message_${index + 1}.png`;
+      link.download = `love_message_${index + 1}.png`;
       document.body.appendChild(link);
   
       // 遅延を入れて順番通りにクリック
       setTimeout(() => {
         link.click();
         document.body.removeChild(link);
-      }, index * 200);
+      }, index * 400);
     });
   };
 
