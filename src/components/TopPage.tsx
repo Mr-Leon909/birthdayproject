@@ -105,11 +105,11 @@ export default function TopPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className=" bg-white text-black">
       <div>
         <div style={{ height: '1px', backgroundColor: '#7b7b7b', margin: '16px 0' }} />
         
-        <div className="min-h-screen bg-white text-black">
+        <div className="bg-white text-black">
           <div>
             <div style={{ height: "1px", backgroundColor: "#7b7b7b", margin: "16px 0" }} />
 
