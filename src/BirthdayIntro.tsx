@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import openingImage from './assets/opening.png';
 
 type Props = {
   onFinish: () => void;
@@ -32,7 +33,7 @@ export default function BirthdayIntro({ onFinish }: Props) {
     >
       <div className="relative w-full h-full max-w-4xl">
         <img 
-          src="./assets/opening.png" 
+          src={openingImage}
           alt="Birthday" 
           className="w-full h-full object-contain"
         />
