@@ -2,16 +2,23 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ImageWithBackground from './ImageWithBackground';
 import GalleryImage from './gallery/GalleryImage';
-import fv1 from '../assets/16.png';
-import fv2 from '../assets/17.png';
-import fv3 from '../assets/18.png';
-import fv4 from '../assets/19.png';
-import fv5 from '../assets/20.png';
-import fv6 from '../assets/21.png';
-import fv7 from '../assets/22.png';
-import fv8 from '../assets/23.png';
-import fv9 from '../assets/24.png';
-import fv10 from '../assets/25.png';
+import fv1 from '../assets/fv1.png';
+import fv2 from '../assets/fv2.png';
+import fv3 from '../assets/fv3.png';
+import fv4 from '../assets/fv4.png';
+import fv5 from '../assets/fv5.png';
+import fv6 from '../assets/fv6.png';
+import fv7 from '../assets/fv7.png';
+import g16 from '../assets/16.png';
+import g17 from '../assets/17.png';
+import g18 from '../assets/18.png';
+import g19 from '../assets/19.png';
+import g20 from '../assets/20.png';
+import g21 from '../assets/21.png';
+import g22 from '../assets/22.png';
+import g23 from '../assets/23.png';
+import g24 from '../assets/24.png';
+import g25 from '../assets/25.png';
 import topImage from '../assets/top.png';
 import tsutsuji from '../assets/tsutsuji.png';
 import quizImg from '../assets/quiz.png';
@@ -32,9 +39,6 @@ export default function TopPage() {
     fv5,
     fv6,
     fv7,
-    fv8,
-    fv9,
-    fv10,
   ];
   
   const images = [
@@ -63,13 +67,16 @@ export default function TopPage() {
 
   // ギャラリー用の画像URLリスト
   const galleryImages = [
-    fv1,
-    fv2,
-    fv3,
-    fv4,
-    fv5,
-    fv6,
-    fv7,
+    g16,
+    g17,
+    g18,
+    g19,
+    g20,
+    g21,
+    g22,
+    g23,
+    g24,
+    g25,
   ];
 
   // 画像のスライドショー効果
