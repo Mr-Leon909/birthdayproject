@@ -1,6 +1,7 @@
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
 
 // カスタムポップアップコンポーネント
 function ResultPopup({ isOpen, onClose, isCorrect, message, onNext }) {
@@ -418,17 +419,6 @@ function Quiz4() {
     }
   };
 
-  const handleDownloadImage = () => {
-    // src/assets フォルダを基準としたパスを使用
-    const imageUrl = '/src/assets/SecretMessage.png'; 
-    const link = document.createElement('a');
-    link.href = imageUrl;
-    link.download = 'SecretMessage.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <motion.div
@@ -491,19 +481,21 @@ function Quiz4() {
             </>
           ) : (
             <div className="space-y-4 px-4">
-              <p className="text-[#0493a6]">全問正解おめでとうございます！</p>
+              <iframe 
+                src="https://www.youtube.com/embed/iZAbOC3pLpM?autoplay=1&mute=1&loop=1&playlist=iZAbOC3pLpM" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+                className="w-full aspect-video rounded"
+                frameBorder="0"
+              ></iframe>
+              <p className="text-black">全問正解おめでとうございます！ < br />
+                暗証番号を入力して、シークレットメッセージを開きましょう！
+              </p>
+
               {showPin && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-8">
                   <div className="mt-6">
-                    <button
-                      onClick={handleDownloadImage}
-                      className="inline-flex items-center bg-[#0493a6] text-white py-3 px-6 rounded transition-colors"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                      </svg>
-                      メッセージをダウンロード
-                    </button>
+                    <Link to="/secret" className='text-black underline'>シークレットページへ</Link>
                   </div>
                 </motion.div>
               )}

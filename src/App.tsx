@@ -5,6 +5,7 @@ import TopPage from './components/TopPage';
 import SNSPage from './components/SNSPage';
 import Quiz from './components/quiz';
 import Navigation from './components/Navigation';
+import SecretPage from './components/secretPage';
 import logoImage from './assets/logo.png';
 
 
@@ -32,6 +33,7 @@ function App() {
               <Route path="/" element={<TopPage />} />
               <Route path="/sns/*" element={<SNSPage />} />
               <Route path="/quiz/*" element={<Quiz />} />
+              <Route path="/secret" element={<SecretPage />} />
             </Routes>
           </div>
         )}
